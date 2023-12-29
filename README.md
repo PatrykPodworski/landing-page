@@ -2,8 +2,22 @@ This is my landing page, available at [podwor.ski](https://www.podwor.ski).
 
 ## Getting Started
 
-You can run this project locally by cloning the repository and running the following command:
+Setup the local envs:
+```bash
+# Google Analytics
+GA_MEASUREMENT_ID = ""
+```
+
+Install the dependencies:
+
+```bash
+yarn install
+```
+
+Run the development server:
 
 ```bash
 yarn dev
 ```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
