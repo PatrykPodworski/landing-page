@@ -2,7 +2,7 @@ import clsx from "clsx";
 
 const Day = ({ hidden, disabled }: Props) => {
   return (
-    <div
+    <button
       className={clsx(
         `w-8 h-8 rounded-lg`,
         disabled
