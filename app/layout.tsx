@@ -19,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={clsx(inter.className, "bg-neutral-900")}>
-        {children}
+        <main className="flex min-h-dvh flex-col items-center justify-center">
+          {children}
+        </main>
       </body>
       <GoogleTag />
     </html>
