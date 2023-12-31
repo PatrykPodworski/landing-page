@@ -1,7 +1,6 @@
 import Day from "./Day";
 
 const Week = ({ startDay = 0, endDay = 6, activeDay }: Props) => {
-  console.log(startDay, endDay, activeDay);
   if (startDay > endDay) {
     throw new Error("startDay must be less than or equal to endDay");
   }
