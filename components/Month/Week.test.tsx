@@ -49,3 +49,10 @@ describe("throws error when activeDay is not between startDay and endDay", () =>
     }
   );
 });
+
+test("when no activeDay is provided, all days are disabled", () => {
+  render(<Week />);
+  const days = screen.getAllByRole("button");
+  expect(days.length).toBe(7);
+  days.forEach((day) => expect(day).toHaveProperty("disabled", true));
+});

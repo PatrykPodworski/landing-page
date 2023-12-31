@@ -11,7 +11,7 @@ const Month = ({ startDay = 0, numberOfDays, activeDay = 0 }: Props) => {
   const getActiveDay = (week: number) => {
     switch (true) {
       case week < activeWeek:
-        return 7;
+        return undefined;
       case week === activeWeek:
         return activeWeekDay;
       default:
