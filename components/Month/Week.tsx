@@ -8,7 +8,7 @@ const Week = ({ startDay = 0, endDay = 6, activeDay }: Props) => {
     throw new Error("activeDay must be between startDay and endDay");
   }
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2" data-testid="week">
       {Array(7)
         .fill(0)
         .map((_, index) => (

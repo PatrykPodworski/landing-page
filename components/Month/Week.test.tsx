@@ -14,7 +14,7 @@ describe("always renders 7 days", () => {
       render(
         <Week startDay={startDay} endDay={endDay} activeDay={activeDay} />
       );
-      expect(screen.getAllByRole("button").length).toBe(7);
+      expect(screen.getAllByTestId("day").length).toBe(7);
     }
   );
 });
@@ -52,7 +52,8 @@ describe("throws error when activeDay is not between startDay and endDay", () =>
 
 test("when no activeDay is provided, all days are disabled", () => {
   render(<Week />);
-  const days = screen.getAllByRole("button");
-  expect(days.length).toBe(7);
-  days.forEach((day) => expect(day).toHaveProperty("disabled", true));
+  const days = screen
+    .getAllByTestId("day")
+    .filter((x) => !x.hasAttribute("disabled"));
+  expect(days.length).toBe(0);
 });
