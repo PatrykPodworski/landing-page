@@ -8,7 +8,7 @@ const Day = ({ invisible, disabled, index }: Props) => {
         `w-8 h-8 rounded-lg flex justify-center items-center`,
         disabled
           ? "border border-neutral-800 text-neutral-700"
-          : "cursor-pointer bg-rose-500 hover:bg-rose-400 transition-colors active:bg-rose-300 text-rose-100",
+          : "cursor-pointer bg-rose-700 hover:bg-rose-500 transition-colors active:bg-rose-400 text-rose-100",
         invisible && "invisible"
       )}
     >
