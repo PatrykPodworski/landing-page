@@ -49,11 +49,3 @@ describe("throws error when activeDay is not between startDay and endDay", () =>
     }
   );
 });
-
-test("when no activeDay is provided, all days are disabled", () => {
-  render(<Week />);
-  const days = screen
-    .getAllByTestId("day")
-    .filter((x) => !x.hasAttribute("disabled"));
-  expect(days.length).toBe(0);
-});

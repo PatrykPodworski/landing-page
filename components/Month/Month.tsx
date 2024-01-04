@@ -1,6 +1,5 @@
 import Week from "./Week";
 
-//TODO: Test this component
 const Month = ({ startDay = 0, numberOfDays, activeDay = 0 }: Props) => {
   const offset = startDay;
   const numberOfWeeks = Math.ceil((offset + numberOfDays) / 7);
@@ -27,6 +26,8 @@ const Month = ({ startDay = 0, numberOfDays, activeDay = 0 }: Props) => {
           startDay={index === 0 ? startDay : 0}
           endDay={index === numberOfWeeks - 1 ? endDay : undefined}
           activeDay={getActiveDay(index)}
+          weekIndex={index}
+          offset={offset}
         />
       ))}
     </div>

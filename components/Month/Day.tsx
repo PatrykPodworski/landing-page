@@ -1,23 +1,25 @@
 import clsx from "clsx";
 
-const Day = ({ hidden, disabled }: Props) => {
+const Day = ({ invisible, disabled, index }: Props) => {
   return (
-    <button
+    <div
       data-testid="day"
-      disabled={disabled}
       className={clsx(
-        `w-8 h-8 rounded-lg`,
+        `w-8 h-8 rounded-lg flex justify-center items-center`,
         disabled
-          ? "border border-neutral-800"
-          : "cursor-pointer bg-rose-500 hover:bg-rose-400 transition-colors active:bg-rose-300",
-        hidden && "invisible"
+          ? "border border-neutral-800 text-neutral-700"
+          : "cursor-pointer bg-rose-500 hover:bg-rose-400 transition-colors active:bg-rose-300 text-rose-100",
+        invisible && "invisible"
       )}
-    />
+    >
+      {!invisible && index + 1}
+    </div>
   );
 };
 
 type Props = {
-  hidden?: boolean;
+  invisible?: boolean;
   disabled?: boolean;
+  index: number;
 };
 export default Day;

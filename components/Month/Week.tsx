@@ -1,6 +1,12 @@
 import Day from "./Day";
 
-const Week = ({ startDay = 0, endDay = 6, activeDay }: Props) => {
+const Week = ({
+  activeDay,
+  startDay = 0,
+  endDay = 6,
+  weekIndex = 0,
+  offset = 0,
+}: Props) => {
   if (startDay > endDay) {
     throw new Error("startDay must be less than or equal to endDay");
   }
@@ -14,8 +20,9 @@ const Week = ({ startDay = 0, endDay = 6, activeDay }: Props) => {
         .map((_, index) => (
           <Day
             key={index}
-            hidden={index < startDay || index > endDay}
+            invisible={index < startDay || index > endDay}
             disabled={!activeDay || index < activeDay}
+            index={weekIndex * 7 + index - offset}
           />
         ))}
     </div>
@@ -26,6 +33,8 @@ type Props = {
   startDay?: number;
   endDay?: number;
   activeDay?: number;
+  weekIndex?: number;
+  offset?: number;
 };
 
 export default Week;
