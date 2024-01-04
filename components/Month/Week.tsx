@@ -1,18 +1,17 @@
 import Day from "./Day";
+import DayStatus from "./DayStatus";
 
 const Week = ({
-  activeDay,
   startDay = 0,
   endDay = 6,
   weekIndex = 0,
   offset = 0,
+  days,
 }: Props) => {
   if (startDay > endDay) {
     throw new Error("startDay must be less than or equal to endDay");
   }
-  if (activeDay !== undefined && (activeDay < startDay || activeDay > endDay)) {
-    throw new Error("activeDay must be between startDay and endDay");
-  }
+
   return (
     <div className="flex gap-2" data-testid="week">
       {Array(7)
@@ -21,8 +20,8 @@ const Week = ({
           <Day
             key={index}
             invisible={index < startDay || index > endDay}
-            disabled={!activeDay || index < activeDay}
             index={weekIndex * 7 + index - offset}
+            status={days && days[weekIndex === 0 ? index - offset : index]}
           />
         ))}
     </div>
@@ -32,9 +31,9 @@ const Week = ({
 type Props = {
   startDay?: number;
   endDay?: number;
-  activeDay?: number;
   weekIndex?: number;
   offset?: number;
+  days?: DayStatus[];
 };
 
 export default Week;

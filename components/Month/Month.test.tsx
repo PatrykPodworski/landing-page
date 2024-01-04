@@ -48,3 +48,21 @@ describe("label the days correctly", () => {
     }
   );
 });
+
+describe("throws error when days length is not equal to numberOfDays", () => {
+  it.each([
+    // [numberOfDays, length]
+    [28, 0],
+    [28, 1],
+    [28, 27],
+    [28, 29],
+  ])(
+    "when numberOfDays is %i and days length is %i",
+    (numberOfDays, length) => {
+      const days: "active"[] = Array.from(Array(length)).map(() => "active");
+      expect(() =>
+        render(<Month numberOfDays={numberOfDays} days={days} />)
+      ).toThrow();
+    }
+  );
+});
