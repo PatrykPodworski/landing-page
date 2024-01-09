@@ -3,7 +3,7 @@ import { MissingEnvError } from "./getEnv";
 
 // TODO: Move to a middleware
 const withEnvErrorHandling = <T,>(
-  handler: (request: NextRequest) => Promise<T>
+  handler: (request: NextRequest) => Promise<NextResponse<T>>
 ) => {
   return async (request: NextRequest) => {
     try {
@@ -12,6 +12,8 @@ const withEnvErrorHandling = <T,>(
       if (error instanceof MissingEnvError) {
         return NextResponse.json({ error: error.message }, { status: 500 });
       }
+
+      throw error;
     }
   };
 };

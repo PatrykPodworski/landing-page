@@ -8,7 +8,11 @@ const getEnv = (name: Env) => {
   return env;
 };
 
-type Env = "GA_MEASUREMENT_ID" | "TODOIST_TOKEN" | "TODOIST_PROJECT_ID";
+type Env =
+  | "GA_MEASUREMENT_ID"
+  | "TODOIST_TOKEN"
+  | "TODOIST_PROJECT_ID"
+  | "HABITS_SECRET";
 
 export class MissingEnvError extends Error {}
 

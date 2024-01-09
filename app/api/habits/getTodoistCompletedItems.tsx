@@ -1,9 +1,9 @@
-import { array, date, object, string } from "yup";
+import { InferType, array, date, object, string } from "yup";
 import getEnv from "@/utils/getEnv";
 
 const GET_ITEMS_URL = `https://api.todoist.com/sync/v9/completed/get_all`;
 
-const getTodoistCompletedItems = async () => {
+const getTodoistCompletedItems = async (): Promise<Item[]> => {
   const token = getEnv("TODOIST_TOKEN");
   const projectId = getEnv("TODOIST_PROJECT_ID");
 
@@ -34,5 +34,7 @@ const responseItem = object({
 const responseSchema = object({
   items: array(responseItem).required(),
 });
+
+export type Item = InferType<typeof responseItem>;
 
 export default getTodoistCompletedItems;

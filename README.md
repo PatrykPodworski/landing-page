@@ -6,6 +6,13 @@ Setup the local envs:
 ```bash
 # Google Analytics
 GA_MEASUREMENT_ID = ""
+
+# Todoist
+TODOIST_TOKEN = ""
+TODOIST_PROJECT_ID = ""
+
+# Habits
+HABITS_SECRET = ""
 ```
 
 Install the dependencies:

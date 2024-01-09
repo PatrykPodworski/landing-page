@@ -1,23 +1,58 @@
 import DayStatus from "@/components/Month/DayStatus";
-import Month from "@/components/Month/Month";
+import Habit from "@/models/Habit";
+import HabitMonth from "./HabitMonth";
 
-export default function Home() {
-  const decemberLength = 31;
-  const decemberDays: DayStatus[] = Array(decemberLength).fill("skipped");
-  decemberDays.fill("completed", 28, 31);
+const JANUARY_DAYS = 31;
 
-  const januaryLength = 31;
-  const januaryDays: DayStatus[] = Array(januaryLength).fill("skipped");
-  januaryDays.fill("completed", 0, 3);
-  januaryDays[2] = "missed";
-  const currentDay = new Date().getDay();
-  januaryDays[currentDay - 1] = "active";
+const Home = async ({ searchParams }: HomeProps) => {
+  const url = new URL("http://localhost:3000/api/habits");
+  url.searchParams.set(
+    "secret",
+    typeof searchParams.secret === "string" ? searchParams.secret : ""
+  );
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const habits: Habit[] = await response.json();
+  const habitDays = habits.map(mapToDays);
 
   return (
     <>
-      <p className="text-white text-xl text">Hello, I&apos;m Patryk</p>
-      <Month numberOfDays={31} startDay={4} days={decemberDays} />
-      <Month numberOfDays={31} days={januaryDays} />
+      <div className="flex flex-wrap max-w-5xl gap-10 justify-center">
+        {habitDays.map((habit) => (
+          <HabitMonth
+            key={habit.name}
+            name={habit.name}
+            days={habit.days}
+            numberOfDays={JANUARY_DAYS}
+          />
+        ))}
+      </div>
     </>
   );
-}
+};
+
+type HomeProps = {
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export default Home;
+
+//TODO: spread doubles
+const mapToDays = (habit: Habit) => {
+  const days: DayStatus[] = Array(31).fill("missed");
+  habit.dates.forEach((date) => {
+    days[date.day - 1] = "completed";
+  });
+
+  const currentDay = new Date().getDate();
+  if (days[currentDay - 1] !== "completed") {
+    days[currentDay - 1] = "active";
+  }
+
+  return { days, name: habit.name };
+};
