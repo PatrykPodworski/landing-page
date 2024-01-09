@@ -1,11 +1,13 @@
 import DayStatus from "@/components/Month/DayStatus";
 import Habit from "@/models/Habit";
 import HabitMonth from "./HabitMonth";
+import getEnv from "@/utils/getEnv";
 
 const JANUARY_DAYS = 31;
 
 const Home = async ({ searchParams }: HomeProps) => {
-  const url = new URL("http://localhost:3000/api/habits");
+  const baseUrl = getEnv("VERCEL_URL");
+  const url = new URL(`${baseUrl}/api/habits`);
   url.searchParams.set(
     "secret",
     typeof searchParams.secret === "string" ? searchParams.secret : ""
