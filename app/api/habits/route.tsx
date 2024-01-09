@@ -3,6 +3,7 @@ import getTodoistCompletedItems, { Item } from "./getTodoistCompletedItems";
 import withEnvErrorHandling from "@/utils/withEnvErrorHandling";
 import Habit, { CompletedItem } from "@/models/Habit";
 import getEnv from "@/utils/getEnv";
+import { addHours } from "date-fns/addHours";
 
 const getHandler = async (request: NextRequest) => {
   const showRealData = isSecretValid(request);
@@ -25,7 +26,7 @@ const groupAndMapItems = (items: Item[], showRealData: boolean) => {
     id: item.id,
     name: item.content,
     date: item.completed_at,
-    day: item.completed_at.getDate(),
+    day: addHours(item.completed_at, -3).getUTCDate(),
   }));
 
   const groupedItems = completedItems.reduce<Record<string, CompletedItem[]>>(

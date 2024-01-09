@@ -28,6 +28,7 @@ const Home = async ({ searchParams }: HomeProps) => {
             key={habit.name}
             name={habit.name}
             days={habit.days}
+            numberOfCompleted={habit.numberOfCompleted}
             numberOfDays={JANUARY_DAYS}
           />
         ))}
@@ -54,5 +55,5 @@ const mapToDays = (habit: Habit) => {
     days[currentDay - 1] = "active";
   }
 
-  return { days, name: habit.name };
+  return { days, name: habit.name, numberOfCompleted: habit.dates.length };
 };
