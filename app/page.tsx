@@ -6,20 +6,10 @@ import getEnv from "@/utils/getEnv";
 const JANUARY_DAYS = 31;
 
 const Home = async ({ searchParams }: HomeProps) => {
-  const baseUrl = getEnv("VERCEL_URL");
-  const url = new URL(`${baseUrl}/api/habits`);
-  url.searchParams.set(
-    "secret",
-    typeof searchParams.secret === "string" ? searchParams.secret : ""
-  );
+  const secret =
+    typeof searchParams.secret === "string" ? searchParams.secret : undefined;
 
-  const response = await fetch(url, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const habits: Habit[] = await response.json();
+  const habits = await getHabits(secret);
   const habitDays = habits.map(mapToDays);
 
   return (
@@ -45,7 +35,28 @@ type HomeProps = {
 
 export default Home;
 
-//TODO: spread doubles
+const getHabits = async (secret: string | undefined) => {
+  const baseUrl = getEnv("VERCEL_URL");
+  const protocol = getEnv("PROTOCOL");
+  const url = new URL(`${protocol}://${baseUrl}/api/habits`);
+
+  if (secret) {
+    url.searchParams.set("secret", secret);
+  }
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  // TODO: validate type
+  const habits: Habit[] = await response.json();
+
+  return habits;
+};
+
 const mapToDays = (habit: Habit) => {
   const days: DayStatus[] = Array(31).fill("missed");
   habit.dates.forEach((date) => {
