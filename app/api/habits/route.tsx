@@ -6,6 +6,7 @@ import getEnv from "@/utils/getEnv";
 import { addHours } from "date-fns/addHours";
 
 const getHandler = async (request: NextRequest) => {
+  console.log("getHandler");
   const showRealData = isSecretValid(request);
   const items = await getTodoistCompletedItems();
   const habits = groupAndMapItems(items, showRealData);
