@@ -39,6 +39,7 @@ const getHabits = async (secret: string | undefined) => {
   const baseUrl = getEnv("VERCEL_URL");
   const protocol = getEnv("PROTOCOL");
   const url = new URL(`${protocol}://${baseUrl}/api/habits`);
+  console.log("get api url", url.href);
 
   if (secret) {
     url.searchParams.set("secret", secret);
