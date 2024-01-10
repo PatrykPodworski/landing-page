@@ -9,8 +9,6 @@ const getEnv = (name: Env) => {
 };
 
 type Env =
-  | "PROTOCOL"
-  | "VERCEL_URL"
   | "GA_MEASUREMENT_ID"
   | "TODOIST_TOKEN"
   | "TODOIST_PROJECT_ID"
