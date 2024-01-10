@@ -39,21 +39,23 @@ const getHabits = async (secret: string | undefined) => {
   const baseUrl = getEnv("VERCEL_URL");
   const protocol = getEnv("PROTOCOL");
   const url = new URL(`${protocol}://${baseUrl}/api/habits`);
-  console.log("get api url", url.href);
 
   if (secret) {
     url.searchParams.set("secret", secret);
   }
 
+  console.log("get api url", url.href);
   const response = await fetch(url, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
   });
+  console.log("response", response.status);
 
   // TODO: validate type
   const habits: Habit[] = await response.json();
+  console.log("habits");
 
   return habits;
 };
