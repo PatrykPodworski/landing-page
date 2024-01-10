@@ -9,7 +9,6 @@ const getTodoistCompletedItems = async (): Promise<Item[]> => {
 
   const url = new URL(GET_ITEMS_URL);
   url.searchParams.append("project_id", projectId);
-  url.searchParams.append("annotate_items", "true");
   url.searchParams.append("limit", "200");
 
   const response = await fetch(url, {
