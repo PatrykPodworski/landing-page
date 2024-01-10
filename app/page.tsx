@@ -1,7 +1,7 @@
 import DayStatus from "@/components/Month/DayStatus";
 import Habit from "@/models/Habit";
 import HabitMonth from "./HabitMonth";
-import getEnv from "@/utils/getEnv";
+import getHabits from "./getHabits";
 
 const JANUARY_DAYS = 31;
 
@@ -34,31 +34,6 @@ type HomeProps = {
 };
 
 export default Home;
-
-const getHabits = async (secret: string | undefined) => {
-  const baseUrl = getEnv("VERCEL_URL");
-  const protocol = getEnv("PROTOCOL");
-  const url = new URL(`${protocol}://${baseUrl}/api/habits`);
-
-  if (secret) {
-    url.searchParams.set("secret", secret);
-  }
-
-  console.log("get api url", url.href);
-  const response = await fetch(url, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  console.log("response", response.status);
-
-  // TODO: validate type
-  const habits: Habit[] = await response.json();
-  console.log("habits");
-
-  return habits;
-};
 
 const mapToDays = (habit: Habit) => {
   const days: DayStatus[] = Array(31).fill("missed");

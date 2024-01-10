@@ -1,23 +1,17 @@
-import { NextRequest, NextResponse } from "next/server";
 import getTodoistCompletedItems, { Item } from "./getTodoistCompletedItems";
-import withEnvErrorHandling from "@/utils/withEnvErrorHandling";
 import Habit, { CompletedItem } from "@/models/Habit";
 import getEnv from "@/utils/getEnv";
 import { addHours } from "date-fns/addHours";
 
-const getHandler = async (request: NextRequest) => {
-  console.log("getHandler");
-  const showRealData = isSecretValid(request);
+export const getHabits = async (secret: string | undefined) => {
+  const showRealData = isSecretValid(secret);
   const items = await getTodoistCompletedItems();
   const habits = groupAndMapItems(items, showRealData);
 
-  return NextResponse.json(habits);
+  return habits;
 };
 
-export const GET = withEnvErrorHandling(getHandler);
-
-const isSecretValid = (request: NextRequest) => {
-  const secret = request.nextUrl.searchParams.get("secret");
+const isSecretValid = (secret: string | undefined) => {
   const habitsSecret = getEnv("HABITS_SECRET");
   return secret === habitsSecret;
 };
@@ -63,3 +57,5 @@ const fakeNames = [
   "No video games",
   "No junk food",
 ];
+
+export default getHabits;
