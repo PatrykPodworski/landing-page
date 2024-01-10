@@ -15,6 +15,7 @@ const getTodoistCompletedItems = async (): Promise<Item[]> => {
     headers: {
       Authorization: `Bearer ${token}`,
     },
+    cache: "no-store",
   });
 
   const { items } = await responseSchema.validate(await response.json(), {
