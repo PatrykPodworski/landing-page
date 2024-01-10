@@ -25,7 +25,7 @@ const Month = ({ startDay = 0, numberOfDays, days }: Props) => {
   };
 
   return (
-    <div className="m-4 p-4 flex flex-col gap-2">
+    <div className="flex flex-col gap-2">
       {Array.from(Array(numberOfWeeks)).map((_, index) => {
         return (
           <Week
