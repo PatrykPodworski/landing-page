@@ -1,14 +1,5 @@
-import { InferType, array, date, number, object, string } from "yup";
-
-const CompletedItem = object({
-  id: string().required(),
-  name: string().required(),
-  date: date().required(),
-  day: number().required(),
-  source: string().required(),
-});
-
-export type CompletedItem = InferType<typeof CompletedItem>;
+import { InferType, array, object, string } from "yup";
+import CompletedItem from "./CompletedItem";
 
 const Habit = object({
   name: string().required(),

@@ -1,66 +1,27 @@
-import { addHours } from "date-fns/addHours";
-import Habit, { CompletedItem } from "@/models/Habit";
+// TODO: Consider enabling import/no-internal-modules rule
 import fetchCompletedItems from "@/lib/todoist/fetchCompletedItems";
-import insertItems from "@/lib/db/insertItems";
+import insertItems from "@/lib/habits/getHabits/insertItems";
 import validateAccess from "./validateAccess";
+import mapToDbo from "./mapToDbo";
+import getEnv from "@/utils/getEnv";
+import mapToCompletedItem from "./mapToCompletedItem";
+import groupItems from "./groupItems";
+import { queryByUserId } from "@/lib/db/HabitItem";
 
-// TODO: Serve items from the database
 export const getHabits = async (secret: string | undefined) => {
+  const userId = getEnv("USER_ID");
   const showRealData = validateAccess(secret);
+
+  // TODO: Sync data asynchronously
   const items = await fetchCompletedItems();
-  const mappedItems = mapItems(items);
-  await insertItems(mappedItems);
-  const habits = groupItems(mappedItems, showRealData);
+  const dboItems = items.map((x) => mapToDbo(x, userId));
+  await insertItems(dboItems);
+
+  const itemsFromDb = await queryByUserId(userId);
+  const completedItems = itemsFromDb.map(mapToCompletedItem);
+  const habits = groupItems(completedItems, showRealData);
 
   return habits;
 };
-
-type ResponseItem = Awaited<ReturnType<typeof fetchCompletedItems>>;
-const mapItems = (items: ResponseItem) => {
-  const completedItems: CompletedItem[] = items.map((item) => ({
-    id: item.id,
-    name: item.content,
-    date: item.completed_at,
-    day: addHours(item.completed_at, -3).getUTCDate(),
-    source: JSON.stringify(item),
-  }));
-
-  return completedItems;
-};
-
-const groupItems = (completedItems: CompletedItem[], showRealData: boolean) => {
-  const groupedItems = completedItems.reduce<Record<string, CompletedItem[]>>(
-    (acc, item) => {
-      const key = item.name;
-      acc[key] = [...(acc[key] || []), item];
-
-      return acc;
-    },
-    {}
-  );
-
-  const habits: Habit[] = Object.entries(groupedItems).map(
-    ([key, value], index) => {
-      return {
-        name: showRealData ? key : fakeNames[index],
-        dates: value,
-      };
-    }
-  );
-
-  return habits;
-};
-
-const fakeNames = [
-  "Read 20 pages",
-  "No coffee",
-  "Write",
-  "No sugar",
-  "Meditate",
-  "No social media",
-  "Exercise",
-  "No video games",
-  "No junk food",
-];
 
 export default getHabits;

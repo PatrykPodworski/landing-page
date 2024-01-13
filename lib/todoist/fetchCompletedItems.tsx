@@ -26,7 +26,7 @@ const getUrl = (projectId: string) => {
   const url = new URL(GET_ITEMS_URL);
   url.searchParams.append("project_id", projectId);
   url.searchParams.append("limit", "200");
-  url.searchParams.append("since", "2024-01-12T18:00");
+  url.searchParams.append("since", "2024-01-11T18:00");
 
   return url;
 };
@@ -40,5 +40,7 @@ const responseItem = object({
 const responseSchema = object({
   items: array(responseItem).required(),
 });
+
+export type ResponseItem = InferType<typeof responseItem>;
 
 export default fetchCompletedItems;

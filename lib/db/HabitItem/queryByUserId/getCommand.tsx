@@ -1,8 +1,7 @@
 import getEnv from "@/utils/getEnv";
 import { QueryCommand } from "@aws-sdk/client-dynamodb";
 
-// TODO: Validate and use it or remove it
-const getUserQueryCommand = (userId: string) => {
+const getCommand = (userId: string) => {
   const tableName = getEnv("TABLE_NAME");
 
   return new QueryCommand({
@@ -16,4 +15,4 @@ const getUserQueryCommand = (userId: string) => {
   });
 };
 
-export default getUserQueryCommand;
+export default getCommand;
