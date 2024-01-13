@@ -1,7 +1,7 @@
 import DayStatus from "@/components/Month/DayStatus";
 import Habit from "@/models/Habit";
 import HabitMonth from "./HabitMonth";
-import getHabits from "./getHabits";
+import getHabits from "../lib/habits/getHabits";
 
 const JANUARY_DAYS = 31;
 

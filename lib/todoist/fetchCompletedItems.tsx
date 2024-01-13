@@ -3,14 +3,13 @@ import getEnv from "@/utils/getEnv";
 
 const GET_ITEMS_URL = `https://api.todoist.com/sync/v9/completed/get_all`;
 
-const getTodoistCompletedItems = async (): Promise<Item[]> => {
+const fetchCompletedItems = async () => {
   const token = getEnv("TODOIST_TOKEN");
   const projectId = getEnv("TODOIST_PROJECT_ID");
 
-  const url = new URL(GET_ITEMS_URL);
-  url.searchParams.append("project_id", projectId);
-  url.searchParams.append("limit", "200");
+  const url = getUrl(projectId);
 
+  //TODO: Handle errors
   const response = await fetch(url, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -18,11 +17,18 @@ const getTodoistCompletedItems = async (): Promise<Item[]> => {
     cache: "no-store",
   });
 
-  const { items } = await responseSchema.validate(await response.json(), {
-    stripUnknown: true,
-  });
-
+  const { items } = await responseSchema.validate(await response.json());
   return items;
+};
+
+// TODO: Provide since date based on the newest item in the database
+const getUrl = (projectId: string) => {
+  const url = new URL(GET_ITEMS_URL);
+  url.searchParams.append("project_id", projectId);
+  url.searchParams.append("limit", "200");
+  url.searchParams.append("since", "2024-01-12T18:00");
+
+  return url;
 };
 
 const responseItem = object({
@@ -35,6 +41,4 @@ const responseSchema = object({
   items: array(responseItem).required(),
 });
 
-export type Item = InferType<typeof responseItem>;
-
-export default getTodoistCompletedItems;
+export default fetchCompletedItems;

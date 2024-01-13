@@ -12,7 +12,10 @@ type Env =
   | "GA_MEASUREMENT_ID"
   | "TODOIST_TOKEN"
   | "TODOIST_PROJECT_ID"
-  | "HABITS_SECRET";
+  //temp
+  | "HABITS_SECRET"
+  | "TABLE_NAME"
+  | "USER_ID";
 
 export class MissingEnvError extends Error {}
 

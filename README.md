@@ -5,14 +5,20 @@ This is my landing page, available at [podwor.ski](https://www.podwor.ski).
 Setup the local envs:
 ```bash
 # Google Analytics
-GA_MEASUREMENT_ID = ""
+GA_MEASUREMENT_ID=
 
 # Todoist
-TODOIST_TOKEN = ""
-TODOIST_PROJECT_ID = ""
+TODOIST_TOKEN=
+TODOIST_PROJECT_ID=
 
 # Habits
-HABITS_SECRET = ""
+HABITS_SECRET=
+TABLE_NAME=
+USER_ID=
+
+# AWS
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
 ```
 
 Install the dependencies:

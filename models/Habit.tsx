@@ -5,6 +5,7 @@ const CompletedItem = object({
   name: string().required(),
   date: date().required(),
   day: number().required(),
+  source: string().required(),
 });
 
 export type CompletedItem = InferType<typeof CompletedItem>;

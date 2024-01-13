@@ -1,29 +1,34 @@
-import getTodoistCompletedItems, { Item } from "./getTodoistCompletedItems";
-import Habit, { CompletedItem } from "@/models/Habit";
-import getEnv from "@/utils/getEnv";
 import { addHours } from "date-fns/addHours";
+import Habit, { CompletedItem } from "@/models/Habit";
+import fetchCompletedItems from "@/lib/todoist/fetchCompletedItems";
+import insertItems from "@/lib/db/insertItems";
+import validateAccess from "./validateAccess";
 
+// TODO: Serve items from the database
 export const getHabits = async (secret: string | undefined) => {
-  const showRealData = isSecretValid(secret);
-  const items = await getTodoistCompletedItems();
-  const habits = groupAndMapItems(items, showRealData);
+  const showRealData = validateAccess(secret);
+  const items = await fetchCompletedItems();
+  const mappedItems = mapItems(items);
+  await insertItems(mappedItems);
+  const habits = groupItems(mappedItems, showRealData);
 
   return habits;
 };
 
-const isSecretValid = (secret: string | undefined) => {
-  const habitsSecret = getEnv("HABITS_SECRET");
-  return secret === habitsSecret;
-};
-
-const groupAndMapItems = (items: Item[], showRealData: boolean) => {
-  const completedItems = items.map((item) => ({
+type ResponseItem = Awaited<ReturnType<typeof fetchCompletedItems>>;
+const mapItems = (items: ResponseItem) => {
+  const completedItems: CompletedItem[] = items.map((item) => ({
     id: item.id,
     name: item.content,
     date: item.completed_at,
     day: addHours(item.completed_at, -3).getUTCDate(),
+    source: JSON.stringify(item),
   }));
 
+  return completedItems;
+};
+
+const groupItems = (completedItems: CompletedItem[], showRealData: boolean) => {
   const groupedItems = completedItems.reduce<Record<string, CompletedItem[]>>(
     (acc, item) => {
       const key = item.name;
