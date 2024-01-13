@@ -10,7 +10,6 @@ const withEnvErrorHandling = <T,>(
       return await handler(request);
     } catch (error) {
       if (error instanceof MissingEnvError) {
-        console.log(error);
         return NextResponse.json({ error: error.message }, { status: 500 });
       }
 
