@@ -2,6 +2,7 @@ import DayStatus from "@/components/Month/DayStatus";
 import Habit from "@/models/Habit";
 import HabitMonth from "./HabitMonth";
 import getHabits from "../lib/habits/getHabits";
+import SynchronizeHabitsWrapper from "./SynchronizeHabitsWrapper";
 
 const JANUARY_DAYS = 31;
 
@@ -13,7 +14,7 @@ const Home = async ({ searchParams }: HomeProps) => {
   const habitDays = habits.map(mapToDays);
 
   return (
-    <>
+    <SynchronizeHabitsWrapper>
       <div className="flex flex-wrap max-w-5xl gap-10 justify-center">
         {habitDays.map((habit) => (
           <HabitMonth
@@ -25,7 +26,7 @@ const Home = async ({ searchParams }: HomeProps) => {
           />
         ))}
       </div>
-    </>
+    </SynchronizeHabitsWrapper>
   );
 };
 
