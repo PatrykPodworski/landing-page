@@ -3,6 +3,10 @@ import { NextResponse } from "next/server";
 
 // TODO: Add authentication
 export const PUT = async () => {
-  await synchronizeHabits();
-  return new NextResponse();
+  try {
+    await synchronizeHabits();
+    return new NextResponse();
+  } catch (error) {
+    return new NextResponse(null, { status: 429 });
+  }
 };
