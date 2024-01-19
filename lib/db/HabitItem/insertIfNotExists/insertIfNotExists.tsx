@@ -1,7 +1,7 @@
 import { ConditionalCheckFailedException } from "@aws-sdk/client-dynamodb";
 import dynamoDbDocumentClient from "../../dynamoDbDocumentClient";
 import { marshall } from "@aws-sdk/util-dynamodb";
-import HabitItemDbo from "../HabitItemDbo";
+import { HabitItemDbo } from "../HabitItemDbo";
 import { getCommand } from "./getCommand";
 
 const insertIfNotExists = async (dbo: HabitItemDbo) => {

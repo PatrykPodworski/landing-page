@@ -1,4 +1,4 @@
-import HabitItemDbo from "./HabitItemDbo";
+import { HabitItemDbo } from "./HabitItemDbo";
 import insertIfNotExists from "./insertIfNotExists/insertIfNotExists";
 import queryByUserId from "./queryByUserId";
 
