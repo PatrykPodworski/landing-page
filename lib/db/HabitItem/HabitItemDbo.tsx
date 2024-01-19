@@ -1,10 +1,12 @@
-type HabitItemDbo = {
-  UserId: string;
-  Id: string;
-  HabitName: string;
-  Date: string;
-  Day: number;
-  Source: string;
-};
+import { InferType, number, object, string } from "yup";
 
-export default HabitItemDbo;
+export const HabitItemDbo = object({
+  UserId: string().required(),
+  Id: string().required(),
+  HabitName: string().required(),
+  Date: string().required(),
+  Day: number().required(),
+  Source: string().required(),
+});
+
+export type HabitItemDbo = InferType<typeof HabitItemDbo>;
