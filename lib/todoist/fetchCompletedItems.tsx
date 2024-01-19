@@ -25,7 +25,7 @@ const getUrl = (projectId: string) => {
   const url = new URL(GET_ITEMS_URL);
   url.searchParams.append("project_id", projectId);
   url.searchParams.append("limit", "200");
-  url.searchParams.append("since", "2024-01-18T00:00");
+  url.searchParams.append("since", "2024-01-19T00:00");
 
   return url;
 };
