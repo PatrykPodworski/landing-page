@@ -3,13 +3,14 @@ import Habit from "@/models/Habit";
 import HabitMonth from "./HabitMonth";
 import getHabits from "../lib/habits/getHabits";
 
+// TODO: Read and save year and month in the database
 const JANUARY_DAYS = 31;
 
 const Home = async ({ searchParams }: HomeProps) => {
-  const secret =
-    typeof searchParams.secret === "string" ? searchParams.secret : undefined;
+  const userId =
+    typeof searchParams.userId === "string" ? searchParams.userId : undefined;
 
-  const habits = await getHabits(secret);
+  const habits = await getHabits(userId);
   const habitDays = habits.map(mapToDays);
 
   return (
