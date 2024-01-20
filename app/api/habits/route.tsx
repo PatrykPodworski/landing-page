@@ -5,6 +5,24 @@ import { createHmac } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 
 const postHandler = async (request: NextRequest) => {
+  const isRequestValid = await validateRequest(request);
+  if (!isRequestValid) {
+    return new NextResponse(null, { status: 401 });
+  }
+
+  await synchronizeHabits(getToday());
+  return new NextResponse();
+};
+
+export const POST = withEnvErrorHandling(postHandler);
+
+const getToday = () => {
+  const date = new Date();
+  date.setUTCHours(0, 0, 0, 0);
+  return date;
+};
+
+const validateRequest = async (request: NextRequest) => {
   const clientSecret = getEnv("TODOIST_CLIENT_SECRET");
 
   // TODO: Handle like getEnv
@@ -19,13 +37,5 @@ const postHandler = async (request: NextRequest) => {
     .update(JSON.stringify(body))
     .digest("base64");
 
-  if (hmac !== header) {
-    return new NextResponse(null, { status: 401 });
-  }
-
-  // TODO: Add today's date (UTC)
-  await synchronizeHabits();
-  return new NextResponse();
+  return hmac === header;
 };
-
-export const POST = withEnvErrorHandling(postHandler);
