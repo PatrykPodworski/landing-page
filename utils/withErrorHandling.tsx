@@ -9,7 +9,7 @@ const withErrorHandling = <T,>(
     try {
       return await handler(request);
     } catch (error) {
-      errorHandler(error);
+      return errorHandler(error);
     }
   };
 };
