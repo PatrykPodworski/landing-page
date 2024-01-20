@@ -13,9 +13,8 @@ type Env =
   | "TODOIST_TOKEN"
   | "TODOIST_PROJECT_ID"
   | "TODOIST_CLIENT_SECRET"
-  //temp
-  | "HABITS_SECRET"
   | "TABLE_NAME"
+  //temp
   | "USER_ID";
 
 export class MissingEnvError extends Error {}
