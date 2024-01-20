@@ -3,7 +3,6 @@ import getEnv from "@/utils/getEnv";
 import mapToCompletedItem from "./mapToCompletedItem";
 import groupItems from "./groupItems";
 import { queryByUserId } from "@/lib/db/HabitItem";
-import synchronizeHabits from "../synchronizeHabits";
 
 export const getHabits = async (secret: string | undefined) => {
   const userId = getEnv("USER_ID");
