@@ -1,7 +1,8 @@
+import { createHmac } from "crypto";
 import synchronizeHabits from "@/lib/habits/synchronizeHabits";
 import getEnv from "@/utils/getEnv";
-import withEnvErrorHandling from "@/utils/withEnvErrorHandling";
-import { createHmac } from "crypto";
+import getHeader from "@/utils/getHeader";
+import withErrorHandling from "@/utils/withErrorHandling";
 import { NextRequest, NextResponse } from "next/server";
 
 const postHandler = async (request: NextRequest) => {
@@ -14,7 +15,7 @@ const postHandler = async (request: NextRequest) => {
   return new NextResponse();
 };
 
-export const POST = withEnvErrorHandling(postHandler);
+export const POST = withErrorHandling(postHandler);
 
 const getToday = () => {
   const date = new Date();
@@ -24,12 +25,7 @@ const getToday = () => {
 
 const validateRequest = async (request: NextRequest) => {
   const clientSecret = getEnv("TODOIST_CLIENT_SECRET");
-
-  // TODO: Handle like getEnv
-  const header = request.headers.get("X-Todoist-Hmac-SHA256");
-  if (!header) {
-    return new NextResponse(null, { status: 401 });
-  }
+  const header = getHeader("X-Todoist-Hmac-SHA256", request.headers);
 
   const body = await request.json();
 
