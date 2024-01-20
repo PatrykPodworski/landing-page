@@ -3,11 +3,11 @@ import getEnv from "@/utils/getEnv";
 
 const GET_ITEMS_URL = `https://api.todoist.com/sync/v9/completed/get_all`;
 
-const fetchCompletedItems = async () => {
+const fetchCompletedItems = async (since: Date) => {
   const token = getEnv("TODOIST_TOKEN");
   const projectId = getEnv("TODOIST_PROJECT_ID");
 
-  const url = getUrl(projectId);
+  const url = getUrl(projectId, since);
 
   const response = await fetch(url, {
     headers: {
@@ -20,12 +20,11 @@ const fetchCompletedItems = async () => {
   return items;
 };
 
-// TODO: Provide since date based on the newest item in the database
-const getUrl = (projectId: string) => {
+const getUrl = (projectId: string, since: Date) => {
   const url = new URL(GET_ITEMS_URL);
   url.searchParams.append("project_id", projectId);
   url.searchParams.append("limit", "200");
-  url.searchParams.append("since", "2024-01-19T00:00");
+  url.searchParams.append("since", since.toISOString());
 
   return url;
 };
