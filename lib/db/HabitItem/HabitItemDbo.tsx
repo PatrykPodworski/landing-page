@@ -5,7 +5,9 @@ export const HabitItemDbo = object({
   Id: string().required(),
   HabitName: string().required(),
   Date: string().required(),
-  Day: number().required(),
+  Day: number().min(1).max(31).required(),
+  Month: number().min(1).max(12).required(),
+  Year: number().required(),
   Source: string().required(),
 });
 

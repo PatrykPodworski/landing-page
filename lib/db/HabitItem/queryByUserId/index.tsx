@@ -1,8 +1,8 @@
-import dynamoDbDocumentClient from "../../dynamoDbDocumentClient";
-import getCommand from "./getCommand";
-import { HabitItemDbo } from "../HabitItemDbo";
-import { unmarshall } from "@aws-sdk/util-dynamodb";
 import { array } from "yup";
+import { unmarshall } from "@aws-sdk/util-dynamodb";
+import dynamoDbDocumentClient from "../../dynamoDbDocumentClient";
+import { HabitItemDbo } from "../HabitItemDbo";
+import getCommand from "./getCommand";
 
 const queryByUserId = async (userId: string) => {
   const command = getCommand(userId);
