@@ -4,8 +4,12 @@ import dynamoDbDocumentClient from "../../dynamoDbDocumentClient";
 import { HabitItemDbo } from "../HabitItemDbo";
 import getCommand from "./getCommand";
 
-const queryByUserId = async (userId: string) => {
-  const command = getCommand(userId);
+const queryByUserId = async (
+  userId: string,
+  currentMonth: number,
+  currentYear: number
+) => {
+  const command = getCommand(userId, currentMonth, currentYear);
   const response = await dynamoDbDocumentClient.send(command);
   const items = response.Items?.map((x) => unmarshall(x)) ?? [];
 

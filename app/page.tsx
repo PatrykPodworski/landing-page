@@ -2,16 +2,20 @@ import DayStatus from "@/components/Month/DayStatus";
 import Habit from "@/models/Habit";
 import HabitMonth from "./HabitMonth";
 import getHabits from "../lib/habits/getHabits";
-
-// TODO: Read and save year and month in the database
-const JANUARY_DAYS = 31;
+import { getDaysInMonth } from "date-fns/getDaysInMonth";
+import { startOfMonth } from "date-fns";
 
 const Home = async ({ searchParams }: HomeProps) => {
   const userId =
     typeof searchParams.userId === "string" ? searchParams.userId : undefined;
 
-  const habits = await getHabits(userId);
-  const habitDays = habits.map(mapToDays);
+  const daysInMonth = getDaysInMonth(new Date());
+  const firstDayOfTheMonth = startOfMonth(new Date()).getUTCDay();
+
+  const currentMonth = new Date().getUTCMonth();
+  const currentYear = new Date().getUTCFullYear();
+  const habits = await getHabits(userId, currentMonth, currentYear);
+  const habitDays = habits.map((x) => mapToDays(x, daysInMonth));
 
   return (
     <div className="flex flex-wrap max-w-5xl gap-10 justify-center">
@@ -21,7 +25,8 @@ const Home = async ({ searchParams }: HomeProps) => {
           name={habit.name}
           days={habit.days}
           numberOfCompleted={habit.numberOfCompleted}
-          numberOfDays={JANUARY_DAYS}
+          numberOfDays={daysInMonth}
+          startDay={firstDayOfTheMonth}
         />
       ))}
     </div>
@@ -34,8 +39,8 @@ type HomeProps = {
 
 export default Home;
 
-const mapToDays = (habit: Habit) => {
-  const days: DayStatus[] = Array(31).fill("missed");
+const mapToDays = (habit: Habit, numberOfDays: number) => {
+  const days: DayStatus[] = Array(numberOfDays).fill("missed");
   habit.dates.forEach((date) => {
     days[date.day - 1] = "completed";
   });
