@@ -1,9 +1,9 @@
-import DayStatus from "@/components/Month/DayStatus";
-import Habit from "@/models/Habit";
-import HabitMonth from "./HabitMonth";
-import getHabits from "../lib/habits/getHabits";
 import { getDaysInMonth } from "date-fns/getDaysInMonth";
 import { startOfMonth } from "date-fns";
+import DayStatus from "@/components/Month/DayStatus";
+import Habit from "@/models/Habit";
+import getHabits from "@/lib/habits/getHabits";
+import HabitMonth from "./HabitMonth";
 
 const Home = async ({ searchParams }: HomeProps) => {
   const userId =
@@ -37,8 +37,6 @@ type HomeProps = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
-export default Home;
-
 const mapToDays = (habit: Habit, numberOfDays: number) => {
   const days: DayStatus[] = Array(numberOfDays).fill("missed");
   habit.dates.forEach((date) => {
@@ -52,3 +50,5 @@ const mapToDays = (habit: Habit, numberOfDays: number) => {
 
   return { days, name: habit.name, numberOfCompleted: habit.dates.length };
 };
+
+export default Home;
