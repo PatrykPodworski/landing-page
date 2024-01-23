@@ -5,7 +5,7 @@ import Habit from "@/models/Habit";
 import getHabits from "@/lib/habits/getHabits";
 import HabitMonth from "./HabitMonth";
 
-const Home = async ({ searchParams }: HomeProps) => {
+const Habits = async ({ searchParams }: HabitsProps) => {
   const userId =
     typeof searchParams.userId === "string" ? searchParams.userId : undefined;
 
@@ -33,7 +33,7 @@ const Home = async ({ searchParams }: HomeProps) => {
   );
 };
 
-type HomeProps = {
+type HabitsProps = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
@@ -51,4 +51,4 @@ const mapToDays = (habit: Habit, numberOfDays: number) => {
   return { days, name: habit.name, numberOfCompleted: habit.dates.length };
 };
 
-export default Home;
+export default Habits;
