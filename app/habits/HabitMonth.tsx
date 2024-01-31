@@ -1,6 +1,7 @@
 import DayStatus from "@/components/Month/DayStatus";
 import Month from "@/components/Month/Month";
 
+// TODO: Add Suspense
 const HabitMonth = ({
   name,
   days,
