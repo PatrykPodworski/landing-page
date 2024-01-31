@@ -1,54 +1,20 @@
-import { getDaysInMonth } from "date-fns/getDaysInMonth";
-import { startOfMonth } from "date-fns";
-import DayStatus from "@/components/Month/DayStatus";
-import Habit from "@/models/Habit";
-import getHabits from "@/lib/habits/getHabits";
-import HabitMonth from "./HabitMonth";
+import { Suspense } from "react";
+import HabitList from "./HabitList";
+import HabitListSkeleton from "./HabitListSkeleton";
 
 const Habits = async ({ searchParams }: HabitsProps) => {
   const userId =
     typeof searchParams.userId === "string" ? searchParams.userId : undefined;
 
-  const daysInMonth = getDaysInMonth(new Date());
-  const firstDayOfTheMonth = startOfMonth(new Date()).getUTCDay();
-
-  const currentMonth = new Date().getUTCMonth();
-  const currentYear = new Date().getUTCFullYear();
-  const habits = await getHabits(userId, currentMonth, currentYear);
-  const habitDays = habits.map((x) => mapToDays(x, daysInMonth));
-
   return (
-    <div className="flex flex-wrap max-w-5xl gap-10 justify-center">
-      {habitDays.map((habit) => (
-        <HabitMonth
-          key={habit.name}
-          name={habit.name}
-          days={habit.days}
-          numberOfCompleted={habit.numberOfCompleted}
-          numberOfDays={daysInMonth}
-          startDay={firstDayOfTheMonth}
-        />
-      ))}
-    </div>
+    <Suspense fallback={<HabitListSkeleton />}>
+      <HabitList userId={userId} />
+    </Suspense>
   );
 };
 
 type HabitsProps = {
   searchParams: { [key: string]: string | string[] | undefined };
-};
-
-const mapToDays = (habit: Habit, numberOfDays: number) => {
-  const days: DayStatus[] = Array(numberOfDays).fill("missed");
-  habit.dates.forEach((date) => {
-    days[date.day - 1] = "completed";
-  });
-
-  const currentDay = new Date().getDate();
-  if (days[currentDay - 1] !== "completed") {
-    days[currentDay - 1] = "active";
-  }
-
-  return { days, name: habit.name, numberOfCompleted: habit.dates.length };
 };
 
 export default Habits;
