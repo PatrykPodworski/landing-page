@@ -17,8 +17,6 @@ export const MonthSkeleton = ({
             key={index}
             startDay={index === 0 ? startDay : 0}
             endDay={index === numberOfWeeks - 1 ? endDay : undefined}
-            weekIndex={index}
-            offset={startDay}
           />
         );
       })}
