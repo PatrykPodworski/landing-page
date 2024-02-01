@@ -17,7 +17,8 @@ const HabitMonth = ({
     </div>
   );
 };
-type HabitMonthProps = {
+
+export type HabitMonthProps = {
   name: string;
   days: DayStatus[];
   numberOfCompleted: number;
