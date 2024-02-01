@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import DayStatus from "./DayStatus";
 
-const Day = ({ invisible, index, status = "missed" }: Props) => {
+const Day = ({ invisible, index, status = "missed" }: DayProps) => {
   return (
     <div
       data-testid="day"
@@ -28,7 +28,7 @@ const getDayStatusClass = (status: DayStatus) => {
   }
 };
 
-type Props = {
+export type DayProps = {
   invisible?: boolean;
   index: number;
   status?: DayStatus;

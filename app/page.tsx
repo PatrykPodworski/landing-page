@@ -1,54 +1,53 @@
-import DayStatus from "@/components/Month/DayStatus";
-import Habit from "@/models/Habit";
-import HabitMonth from "./HabitMonth";
-import getHabits from "../lib/habits/getHabits";
-import { getDaysInMonth } from "date-fns/getDaysInMonth";
-import { startOfMonth } from "date-fns";
+"use client";
 
-const Home = async ({ searchParams }: HomeProps) => {
-  const userId =
-    typeof searchParams.userId === "string" ? searchParams.userId : undefined;
+import Button from "@/components/Button";
+import { motion, useAnimate, useInView } from "framer-motion";
+import Link from "next/link";
+import { useEffect } from "react";
 
-  const daysInMonth = getDaysInMonth(new Date());
-  const firstDayOfTheMonth = startOfMonth(new Date()).getUTCDay();
+const Home = () => {
+  const [scope, animate] = useAnimate();
+  const isInView = useInView(scope);
 
-  const currentMonth = new Date().getUTCMonth();
-  const currentYear = new Date().getUTCFullYear();
-  const habits = await getHabits(userId, currentMonth, currentYear);
-  const habitDays = habits.map((x) => mapToDays(x, daysInMonth));
+  useEffect(() => {
+    if (isInView) {
+      animate([
+        ["h1", { opacity: 1, y: 0, x: 0 }],
+        ["h2", { opacity: 1, y: 0, x: 0 }, { at: "<" }],
+      ]);
+    }
+  }, [animate, isInView, scope]);
 
   return (
-    <div className="flex flex-wrap max-w-5xl gap-10 justify-center">
-      {habitDays.map((habit) => (
-        <HabitMonth
-          key={habit.name}
-          name={habit.name}
-          days={habit.days}
-          numberOfCompleted={habit.numberOfCompleted}
-          numberOfDays={daysInMonth}
-          startDay={firstDayOfTheMonth}
-        />
-      ))}
+    <div ref={scope} className="flex flex-col gap-4">
+      <motion.h1
+        className="text-white text-3xl"
+        initial={{
+          opacity: 0,
+          y: "100%",
+        }}
+      >
+        Hello, I&apos;m Patryk
+      </motion.h1>
+      <motion.h2
+        className="text-white text-xl"
+        initial={{
+          opacity: 0,
+          x: "100%",
+        }}
+      >
+        Check some of my projects
+      </motion.h2>
+      <div className="flex gap-4">
+        <Link href="/habits">
+          <Button label="Habits" />
+        </Link>
+        <a href="https://next-mile.vercel.app/">
+          <Button label="E-commerce" />
+        </a>
+      </div>
     </div>
   );
 };
 
-type HomeProps = {
-  searchParams: { [key: string]: string | string[] | undefined };
-};
-
 export default Home;
-
-const mapToDays = (habit: Habit, numberOfDays: number) => {
-  const days: DayStatus[] = Array(numberOfDays).fill("missed");
-  habit.dates.forEach((date) => {
-    days[date.day - 1] = "completed";
-  });
-
-  const currentDay = new Date().getDate();
-  if (days[currentDay - 1] !== "completed") {
-    days[currentDay - 1] = "active";
-  }
-
-  return { days, name: habit.name, numberOfCompleted: habit.dates.length };
-};

@@ -1,9 +1,10 @@
 import DayStatus from "./DayStatus";
 import Week from "./Week";
+import { getNumberOfWeeks, getEndDay } from "./utils";
 
-const Month = ({ startDay = 0, numberOfDays, days }: Props) => {
-  const numberOfWeeks = Math.ceil((startDay + numberOfDays) / 7);
-  const endDay = (numberOfDays + startDay - 1) % 7;
+const Month = ({ startDay = 0, numberOfDays, days }: MonthProps) => {
+  const numberOfWeeks = getNumberOfWeeks(startDay, numberOfDays);
+  const endDay = getEndDay(startDay, numberOfDays);
 
   if (days && days.length !== numberOfDays) {
     throw new Error(
@@ -42,7 +43,7 @@ const Month = ({ startDay = 0, numberOfDays, days }: Props) => {
   );
 };
 
-type Props = {
+export type MonthProps = {
   startDay?: number;
   numberOfDays: number;
   days?: DayStatus[];

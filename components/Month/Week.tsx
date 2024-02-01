@@ -7,7 +7,7 @@ const Week = ({
   weekIndex = 0,
   offset = 0,
   days,
-}: Props) => {
+}: WeekProps) => {
   if (startDay > endDay) {
     throw new Error("startDay must be less than or equal to endDay");
   }
@@ -28,7 +28,7 @@ const Week = ({
   );
 };
 
-type Props = {
+export type WeekProps = {
   startDay?: number;
   endDay?: number;
   weekIndex?: number;
