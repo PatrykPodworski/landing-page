@@ -55,7 +55,7 @@ export type MonthProps = {
   numberOfDays: number;
   startDay?: number;
   days?: DayStatus[];
-  onDayClick?: (day: number) => void;
+  onDayClick?: () => void;
 };
 
 export default Month;

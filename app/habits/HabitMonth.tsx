@@ -2,6 +2,7 @@
 
 import DayStatus from "@/components/Month/DayStatus";
 import Month from "@/components/Month/Month";
+import completeHabit from "@/lib/habits/completeHabit";
 
 // TODO: Add streaks view
 // TODO: Add weekly view
@@ -12,9 +13,10 @@ const HabitMonth = ({
   numberOfCompleted,
   numberOfDays,
   startDay,
+  userId,
 }: HabitMonthProps) => {
-  const handleClick = (day: number) => {
-    console.log(habitId, day);
+  const handleClick = async () => {
+    await completeHabit(habitId, userId);
   };
 
   return (
@@ -39,6 +41,7 @@ export type HabitMonthProps = {
   numberOfCompleted: number;
   numberOfDays: number;
   startDay: number;
+  userId?: string;
 };
 
 export default HabitMonth;

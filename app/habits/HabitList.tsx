@@ -25,6 +25,7 @@ const HabitList = async ({ userId }: HabitListProps) => {
           habitId={habit.id}
           numberOfDays={daysInMonth}
           startDay={firstDayOfTheMonth}
+          userId={userId}
         />
       ))}
     </div>
