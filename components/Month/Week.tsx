@@ -1,3 +1,5 @@
+"use client";
+
 import Day from "./Day";
 import DayStatus from "./DayStatus";
 
@@ -7,6 +9,7 @@ const Week = ({
   weekIndex = 0,
   offset = 0,
   days,
+  onDayClick,
 }: WeekProps) => {
   if (startDay > endDay) {
     throw new Error("startDay must be less than or equal to endDay");
@@ -18,6 +21,7 @@ const Week = ({
         .fill(0)
         .map((_, index) => (
           <Day
+            onClick={onDayClick}
             key={index}
             invisible={index < startDay || index > endDay}
             index={weekIndex * 7 + index - offset}
@@ -34,6 +38,7 @@ export type WeekProps = {
   weekIndex?: number;
   offset?: number;
   days?: DayStatus[];
+  onDayClick?: (day: number) => void;
 };
 
 export default Week;

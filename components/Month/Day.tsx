@@ -1,20 +1,23 @@
+"use client";
+
 import clsx from "clsx";
 import DayStatus from "./DayStatus";
 
-const Day = ({ invisible, index, status = "missed" }: DayProps) => {
-  return (
-    <div
-      data-testid="day"
-      className={clsx(
-        `w-8 h-8 rounded-lg flex justify-center items-center transition-colors`,
-        getDayStatusClass(status),
-        invisible && "invisible"
-      )}
-    >
-      {!invisible && index + 1}
-    </div>
-  );
-};
+const Day = ({ invisible, index, status = "missed", onClick }: DayProps) => (
+  <div
+    data-testid="day"
+    className={clsx(
+      `w-8 h-8 rounded-lg flex justify-center items-center transition-colors`,
+      getDayStatusClass(status),
+      invisible && "invisible"
+    )}
+    onClick={
+      onClick && status === "active" ? () => onClick(index + 1) : undefined
+    }
+  >
+    {!invisible && index + 1}
+  </div>
+);
 
 const getDayStatusClass = (status: DayStatus) => {
   switch (status) {
@@ -28,9 +31,11 @@ const getDayStatusClass = (status: DayStatus) => {
   }
 };
 
-export type DayProps = {
-  invisible?: boolean;
+type DayProps = {
   index: number;
+  invisible?: boolean;
   status?: DayStatus;
+  onClick?: (day: number) => void;
 };
+
 export default Day;

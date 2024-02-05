@@ -15,6 +15,7 @@ const groupItems = (completedItems: CompletedItem[], showRealData: boolean) => {
   const habits: Habit[] = Object.entries(groupedItems).map(
     ([key, value], index) => {
       return {
+        id: value[0].habitId,
         name: showRealData ? key : fakeNames[index],
         dates: value,
       };
