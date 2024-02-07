@@ -3,6 +3,7 @@
 import DayStatus from "@/components/Month/DayStatus";
 import Month from "@/components/Month/Month";
 import completeHabit from "@/lib/habits/completeHabit";
+import { useOptimistic } from "react";
 
 // TODO: Add streaks view
 // TODO: Add weekly view
@@ -15,7 +16,17 @@ const HabitMonth = ({
   startDay,
   userId,
 }: HabitMonthProps) => {
-  const handleClick = async () => {
+  const [optimisticDays, optimisticCompleteHabit] = useOptimistic(
+    days,
+    (state, day: number) => [
+      ...state.slice(0, day),
+      "completed" as const,
+      ...state.slice(day + 1),
+    ]
+  );
+
+  const handleClick = async (day: number) => {
+    optimisticCompleteHabit(day);
     await completeHabit(habitId, userId);
   };
 
@@ -26,7 +37,7 @@ const HabitMonth = ({
       </h3>
       <Month
         numberOfDays={numberOfDays}
-        days={days}
+        days={optimisticDays}
         startDay={startDay}
         onDayClick={handleClick}
       />

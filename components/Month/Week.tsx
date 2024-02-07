@@ -38,7 +38,7 @@ export type WeekProps = {
   weekIndex?: number;
   offset?: number;
   days?: DayStatus[];
-  onDayClick?: () => void;
+  onDayClick?: (day: number) => void;
 };
 
 export default Week;

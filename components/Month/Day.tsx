@@ -11,7 +11,7 @@ const Day = ({ invisible, index, status = "missed", onClick }: DayProps) => (
       getDayStatusClass(status),
       invisible && "invisible"
     )}
-    onClick={status === "active" ? onClick : undefined}
+    onClick={status === "active" && onClick ? () => onClick(index) : undefined}
   >
     {!invisible && index + 1}
   </div>
@@ -33,7 +33,7 @@ type DayProps = {
   index: number;
   invisible?: boolean;
   status?: DayStatus;
-  onClick?: () => void;
+  onClick?: (day: number) => void;
 };
 
 export default Day;
