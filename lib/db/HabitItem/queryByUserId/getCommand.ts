@@ -1,12 +1,7 @@
 import getEnv from "@/utils/getEnv";
 import { QueryCommand } from "@aws-sdk/client-dynamodb";
 
-// TODO: Add index for Month and Year
-const getCommand = (
-  userId: string,
-  currentMonth: number,
-  currentYear: number
-) => {
+const getCommand = (userId: string, month: number, year: number) => {
   const tableName = getEnv("TABLE_NAME");
 
   return new QueryCommand({
@@ -23,10 +18,10 @@ const getCommand = (
         S: userId,
       },
       ":Month": {
-        N: (currentMonth + 1).toString(),
+        N: (month + 1).toString(),
       },
       ":Year": {
-        N: currentYear.toString(),
+        N: year.toString(),
       },
     },
   });

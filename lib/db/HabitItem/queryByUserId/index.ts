@@ -1,8 +1,6 @@
-import { array } from "yup";
-import { unmarshall } from "@aws-sdk/util-dynamodb";
 import dynamoDbDocumentClient from "../../dynamoDbDocumentClient";
-import { HabitItemDbo } from "../HabitItemDbo";
 import getCommand from "./getCommand";
+import serializeQueryResponse from "../utils/serializeQueryResponse";
 
 const queryByUserId = async (
   userId: string,
@@ -11,10 +9,9 @@ const queryByUserId = async (
 ) => {
   const command = getCommand(userId, currentMonth, currentYear);
   const response = await dynamoDbDocumentClient.send(command);
-  const items = response.Items?.map((x) => unmarshall(x)) ?? [];
+  const items = await serializeQueryResponse(response);
 
-  const validated = await array(HabitItemDbo).validate([...items]);
-  return validated ?? [];
+  return items;
 };
 
 export default queryByUserId;
