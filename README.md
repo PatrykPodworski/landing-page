@@ -19,6 +19,10 @@ USER_ID=
 # AWS
 AWS_ACCESS_KEY_ID=
 AWS_SECRET_ACCESS_KEY=
+
+# Tests
+TEST_USER_ID=
+TEST_HABIT_ID=
 ```
 
 Install the dependencies:

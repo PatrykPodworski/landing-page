@@ -14,6 +14,8 @@ type Env =
   | "TODOIST_PROJECT_ID"
   | "TODOIST_CLIENT_SECRET"
   | "TABLE_NAME"
+  | "TEST_HABIT_ID"
+  | "TEST_USER_ID"
   //temp
   | "USER_ID";
 

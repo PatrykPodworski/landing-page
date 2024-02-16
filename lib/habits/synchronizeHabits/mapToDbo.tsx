@@ -5,6 +5,7 @@ import { HabitItemDbo } from "@/lib/db/HabitItem";
 const mapToDbo = (item: ResponseItem, userId: string): HabitItemDbo => ({
   UserId: userId,
   Id: item.id,
+  HabitId: item.task_id,
   HabitName: item.content,
   Source: JSON.stringify(item),
   ...getHabitItemDateAttributes(item.completed_at),
