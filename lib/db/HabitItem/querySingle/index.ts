@@ -18,16 +18,11 @@ export const validateGetSingleItem = (items: HabitItemDbo[]) => {
   }
 
   const item = items.at(0);
-  if (!item) {
-    throw new Error("Item not found");
-  }
 
   return item;
 };
 
-const querySingle = async (
-  params: QuerySingleParams
-): Promise<HabitItemDbo> => {
+const querySingle = async (params: QuerySingleParams) => {
   const items = await getItemsFromDb(params);
   var item = validateGetSingleItem(items);
 

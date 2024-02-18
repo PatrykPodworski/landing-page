@@ -20,7 +20,7 @@ const getMockItems = (count: number) => {
 it("should return a single habit item", async () => {
   const items = getMockItems(1);
   const result = validateGetSingleItem(items);
-  expect(result.Id).toEqual(items[0].Id);
+  expect(result).toEqual(items[0]);
 });
 
 it("throws when more than one item found", () => {
@@ -30,7 +30,8 @@ it("throws when more than one item found", () => {
   );
 });
 
-it("throws when item not found", () => {
+it("should return undefined when item not found", () => {
   const items = getMockItems(0);
-  expect(() => validateGetSingleItem(items)).toThrow("Item not found");
+  const result = validateGetSingleItem(items);
+  expect(result).toBeUndefined();
 });
