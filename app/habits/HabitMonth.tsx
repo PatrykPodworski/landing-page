@@ -27,7 +27,7 @@ const HabitMonth = ({
 
   const handleClick = async (day: number) => {
     optimisticCompleteHabit(day);
-    await completeHabit(habitId, userId);
+    await completeHabit(habitId, name, userId);
   };
 
   return (

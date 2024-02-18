@@ -29,7 +29,7 @@ const getDayStatusClass = (status: DayStatus) => {
   }
 };
 
-type DayProps = {
+export type DayProps = {
   index: number;
   invisible?: boolean;
   status?: DayStatus;
