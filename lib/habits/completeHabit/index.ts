@@ -15,7 +15,7 @@ const completeHabit = async (
   const userId = getEnv("USER_ID");
   const hasTodoistIntegration = userId === inputUserId;
 
-  if (!userId) {
+  if (!inputUserId) {
     throw new Error("User ID is required");
   }
 
@@ -25,7 +25,7 @@ const completeHabit = async (
 
   const date = new Date();
   const item: HabitItemDbo = {
-    UserId: userId,
+    UserId: inputUserId,
     Id: randomUUID(),
     HabitName: habitName,
     HabitId: habitId,
