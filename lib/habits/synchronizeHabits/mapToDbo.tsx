@@ -12,11 +12,12 @@ const mapToDbo = (item: ResponseItem, userId: string): HabitItemDbo => ({
 });
 
 export const getHabitItemDateAttributes = (completedDate: Date) => {
+  // TODO: Consider handling it more gracefully
   const adjustedDate = addHours(completedDate, -3);
   return {
     Date: completedDate.toISOString(),
     Day: adjustedDate.getUTCDate(),
-    Month: adjustedDate.getUTCMonth() + 1,
+    Month: adjustedDate.getUTCMonth(),
     Year: adjustedDate.getUTCFullYear(),
   };
 };

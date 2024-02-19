@@ -15,15 +15,11 @@ const insertIfNotExists = async (dbo: HabitItemDbo) => {
 };
 
 const getExistingItem = async (dbo: HabitItemDbo) => {
-  if (!dbo.HabitId) {
-    throw new Error("HabitId is required");
-  }
-
   const params: QuerySingleParams = {
     userId: dbo.UserId,
     habitId: dbo.HabitId,
     day: dbo.Day,
-    month: dbo.Month - 1,
+    month: dbo.Month,
     year: dbo.Year,
   };
 
@@ -34,10 +30,6 @@ const getExistingItem = async (dbo: HabitItemDbo) => {
 const areEqual = (a?: HabitItemDbo, b?: HabitItemDbo) => {
   if (!a || !b) {
     return false;
-  }
-
-  if (!a.HabitId || !b.HabitId) {
-    throw new Error("HabitId is required");
   }
 
   return (

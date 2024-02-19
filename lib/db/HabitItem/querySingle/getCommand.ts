@@ -3,7 +3,6 @@ import QuerySingleParams from "./QuerySingleParams";
 import getEnv from "@/utils/getEnv";
 
 // TODO: Add index for Year, Month, Day and HabitId
-// TODO: Migrate month to avoid +1
 const getCommand = ({
   userId,
   habitId,
@@ -36,7 +35,7 @@ const getCommand = ({
         N: year.toString(),
       },
       ":Month": {
-        N: (month + 1).toString(),
+        N: month.toString(),
       },
       ":Day": {
         N: day.toString(),
