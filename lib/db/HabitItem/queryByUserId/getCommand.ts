@@ -18,7 +18,7 @@ const getCommand = (userId: string, month: number, year: number) => {
         S: userId,
       },
       ":Month": {
-        N: (month + 1).toString(),
+        N: month.toString(),
       },
       ":Year": {
         N: year.toString(),
