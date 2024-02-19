@@ -8,6 +8,8 @@ env:
   TEST_USER_ID: ${{ vars.TEST_USER_ID }}
   TEST_HABIT_ID: ${{ vars.TEST_HABIT_ID }}
   TABLE_NAME: ${{ vars.TABLE_NAME }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
 jobs:
   test:
