@@ -15,5 +15,7 @@ jobs:
         with:
           node-version: 18.x
           cache: "yarn"
+      - name: Print name
+        run: echo "Hello $TEST_USER_ID, $TEST_HABIT_ID"
       - run: yarn install
       - run: yarn ci:test
