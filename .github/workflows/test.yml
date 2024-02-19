@@ -7,6 +7,7 @@ on:
 env:
   TEST_USER_ID: ${{ vars.TEST_USER_ID }}
   TEST_HABIT_ID: ${{ vars.TEST_HABIT_ID }}
+  TABLE_NAME: ${{ vars.TABLE_NAME }}
 
 jobs:
   test:
@@ -20,7 +21,5 @@ jobs:
         with:
           node-version: 18.x
           cache: "yarn"
-      - name: Print envs
-        run: env
       - run: yarn install
       - run: yarn ci:test
