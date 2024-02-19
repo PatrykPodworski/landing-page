@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import Week from "./Week";
+import expectToThrow from "@/utils/expectToThrow";
 
 describe("always renders 7 days", () => {
   it.each([
@@ -23,8 +24,8 @@ describe("throws error when startDay is greater than endDay", () => {
     [5, 4],
     [6, 5],
   ])("when startDay is %i and endDay is %i", (startDay, endDay) => {
-    expect(() => {
+    expectToThrow(() => {
       render(<Week startDay={startDay} endDay={endDay} />);
-    }).toThrow();
+    });
   });
 });

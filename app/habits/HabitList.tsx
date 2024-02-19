@@ -22,8 +22,10 @@ const HabitList = async ({ userId }: HabitListProps) => {
           name={habit.name}
           days={habit.days}
           numberOfCompleted={habit.numberOfCompleted}
+          habitId={habit.id}
           numberOfDays={daysInMonth}
           startDay={firstDayOfTheMonth}
+          userId={userId}
         />
       ))}
     </div>
@@ -45,7 +47,12 @@ const mapToDays = (habit: Habit, numberOfDays: number) => {
     days[currentDay - 1] = "active";
   }
 
-  return { days, name: habit.name, numberOfCompleted: habit.dates.length };
+  return {
+    days,
+    name: habit.name,
+    numberOfCompleted: habit.dates.length,
+    id: habit.id,
+  };
 };
 
 export default HabitList;

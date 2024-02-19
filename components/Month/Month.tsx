@@ -1,8 +1,15 @@
+"use client";
+
 import DayStatus from "./DayStatus";
 import Week from "./Week";
 import { getNumberOfWeeks, getEndDay } from "./utils";
 
-const Month = ({ startDay = 0, numberOfDays, days }: MonthProps) => {
+const Month = ({
+  startDay = 0,
+  numberOfDays,
+  days,
+  onDayClick,
+}: MonthProps) => {
   const numberOfWeeks = getNumberOfWeeks(startDay, numberOfDays);
   const endDay = getEndDay(startDay, numberOfDays);
 
@@ -36,6 +43,7 @@ const Month = ({ startDay = 0, numberOfDays, days }: MonthProps) => {
             weekIndex={index}
             offset={startDay}
             days={getWeekDays(index)}
+            onDayClick={onDayClick}
           />
         );
       })}
@@ -44,9 +52,10 @@ const Month = ({ startDay = 0, numberOfDays, days }: MonthProps) => {
 };
 
 export type MonthProps = {
-  startDay?: number;
   numberOfDays: number;
+  startDay?: number;
   days?: DayStatus[];
+  onDayClick?: (day: number) => void;
 };
 
 export default Month;

@@ -33,6 +33,7 @@ const responseItem = object({
   id: string().required(),
   content: string().required(),
   completed_at: date().required(),
+  task_id: string().required(),
 });
 
 const responseSchema = object({

@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import Month from "./Month";
+import expectToThrow from "@/utils/expectToThrow";
 
 describe("renders correct number of weeks", () => {
   it.each([
@@ -60,9 +61,9 @@ describe("throws error when days length is not equal to numberOfDays", () => {
     "when numberOfDays is %i and days length is %i",
     (numberOfDays, length) => {
       const days: "active"[] = Array.from(Array(length)).map(() => "active");
-      expect(() =>
+      expectToThrow(() =>
         render(<Month numberOfDays={numberOfDays} days={days} />)
-      ).toThrow();
+      );
     }
   );
 });

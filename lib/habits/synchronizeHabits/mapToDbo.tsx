@@ -2,15 +2,20 @@ import { addHours } from "date-fns/addHours";
 import { ResponseItem } from "@/lib/todoist/fetchCompletedItems";
 import { HabitItemDbo } from "@/lib/db/HabitItem";
 
-const mapToDbo = (item: ResponseItem, userId: string): HabitItemDbo => {
-  const adjustedDate = addHours(item.completed_at, -3);
+const mapToDbo = (item: ResponseItem, userId: string): HabitItemDbo => ({
+  UserId: userId,
+  Id: item.id,
+  HabitId: item.task_id,
+  HabitName: item.content,
+  Source: JSON.stringify(item),
+  ...getHabitItemDateAttributes(item.completed_at),
+});
+
+export const getHabitItemDateAttributes = (completedDate: Date) => {
+  const adjustedDate = addHours(completedDate, -3);
   return {
-    UserId: userId,
-    Id: item.id,
-    HabitName: item.content,
-    Date: item.completed_at.toISOString(),
+    Date: completedDate.toISOString(),
     Day: adjustedDate.getUTCDate(),
-    Source: JSON.stringify(item),
     Month: adjustedDate.getUTCMonth() + 1,
     Year: adjustedDate.getUTCFullYear(),
   };
