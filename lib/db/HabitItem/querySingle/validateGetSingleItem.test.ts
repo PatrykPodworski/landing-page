@@ -1,5 +1,6 @@
 import { validateGetSingleItem } from "@/lib/db/HabitItem/querySingle";
 import { HabitItemDbo } from "..";
+import expectToThrow from "@/utils/expectToThrow";
 
 const getMockItems = (count: number) => {
   const items: HabitItemDbo[] = Array.from({ length: count }, (_, i) => ({
@@ -25,9 +26,7 @@ it("should return a single habit item", async () => {
 
 it("throws when more than one item found", () => {
   const items = getMockItems(2);
-  expect(() => validateGetSingleItem(items)).toThrow(
-    "More than one item found"
-  );
+  expectToThrow(() => validateGetSingleItem(items), "More than one item found");
 });
 
 it("should return undefined when item not found", () => {
