@@ -5,8 +5,8 @@ on:
     branches: ["master"]
 
 env:
-  # Setting an environment variable with the value of a configuration variable
-  env_var: ${{ vars }}
+  TEST_USER_ID: ${{ vars.TEST_USER_ID }}
+  TEST_HABIT_ID: ${{ vars.TEST_HABIT_ID }}
 
 jobs:
   test:
