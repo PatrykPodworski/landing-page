@@ -6,6 +6,7 @@ const BACKGROUND_COLOR = "#FFFFFF28";
 const ButtonAnimationWrapper = ({
   children,
   className,
+  onClick,
 }: ButtonAnimationWrapperProps) => {
   const [scope, animate] = useAnimate();
   const isInView = useInView(scope);
@@ -14,7 +15,7 @@ const ButtonAnimationWrapper = ({
     if (isInView) {
       animate([
         ["rect", { pathLength: 1.01 }],
-        ["button", { opacity: 1, x: 0 }],
+        ["div", { opacity: 1, x: 0 }],
       ]);
     }
   }, [animate, isInView]);
@@ -29,32 +30,33 @@ const ButtonAnimationWrapper = ({
   const handleHoverEndAnimation = async () => {
     animate([
       ["circle", { r: 0 }],
-      ["button", { scale: 1 }, { at: "<" }],
+      ["div", { scale: 1 }, { at: "<" }],
     ]);
   };
 
   const handlePointerDownAnimation = () => {
     animate([
       ["circle", { r: "200%" }],
-      ["button", { scale: 0.9 }, { at: "<" }],
+      ["div", { scale: 0.9 }, { at: "<" }],
     ]);
   };
 
   const handlePointerUpAnimation = () => {
     animate([
       ["circle", { r: "50%" }],
-      ["button", { scale: 1 }, { at: "<" }],
+      ["div", { scale: 1 }, { at: "<" }],
     ]);
   };
 
   return (
-    <div
+    <button
       ref={scope}
       className={className}
       onPointerEnter={handleHoverStartAnimation}
       onPointerLeave={handleHoverEndAnimation}
       onPointerDown={handlePointerDownAnimation}
       onPointerUp={handlePointerUpAnimation}
+      onClick={onClick}
     >
       <svg className="absolute overflow-hidden" width="100%" height="100%">
         <circle className="background" fill={BACKGROUND_COLOR} r={0} />
@@ -73,13 +75,14 @@ const ButtonAnimationWrapper = ({
         />
       </svg>
       {children}
-    </div>
+    </button>
   );
 };
 
 type ButtonAnimationWrapperProps = {
   children: React.ReactNode;
   className?: string;
+  onClick?: () => void;
 };
 
 export default ButtonAnimationWrapper;

@@ -3,25 +3,27 @@
 import { motion } from "framer-motion";
 import ButtonAnimationWrapper from "./ButtonAnimationWrapper";
 
-const Button = ({ label, onClick }: ButtonProps) => {
+const Button = ({ children, onClick }: ButtonProps) => {
   return (
-    <ButtonAnimationWrapper className="relative cursor-pointer">
-      <motion.button
-        onClick={onClick}
+    <ButtonAnimationWrapper
+      className="relative cursor-pointer"
+      onClick={onClick}
+    >
+      <motion.div
         className="text-white text-l px-4 py-2 z-10"
         initial={{
           opacity: 0,
           x: 16,
         }}
       >
-        {label}
-      </motion.button>
+        {children}
+      </motion.div>
     </ButtonAnimationWrapper>
   );
 };
 
 type ButtonProps = {
-  label: string;
+  children?: React.ReactNode;
   onClick?: () => void;
 };
 

@@ -40,10 +40,10 @@ const Home = () => {
       </motion.h2>
       <div className="flex gap-4">
         <Link href="/habits">
-          <Button label="Habits" />
+          <Button>Habits</Button>
         </Link>
         <a href="https://next-mile.vercel.app/">
-          <Button label="E-commerce" />
+          <Button>E-commerce</Button>
         </a>
       </div>
     </div>
