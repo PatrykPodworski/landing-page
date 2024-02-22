@@ -7,6 +7,8 @@ import { useOptimistic } from "react";
 
 // TODO: Add streaks view
 // TODO: Add weekly view
+// TODO: Routines
+// TODO: Yearly view
 const HabitMonth = ({
   habitId,
   name,
