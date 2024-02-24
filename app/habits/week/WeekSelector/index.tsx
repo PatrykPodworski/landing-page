@@ -31,7 +31,6 @@ export type WeekYear = {
   year: number;
 };
 
-// TODO: Weekly Page: Show month days
 // TODO: Weekly Page: Week change animation
 // TODO: Weekly Page: Today button
 const WeekLabel = ({ weekYear: { week, year } }: WeekLabelProps) => {
