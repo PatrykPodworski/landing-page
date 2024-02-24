@@ -1,8 +1,30 @@
 {
-  "extends": "next/core-web-vitals",
+  "extends": ["next/core-web-vitals", "plugin:import/recommended"],
   "rules": {
-    "no-console":"warn",
-    "unused-imports/no-unused-imports": "warn"
+    "no-console": "warn",
+    "unused-imports/no-unused-imports": "warn",
+    "import/order": [
+      "warn",
+      {
+        "newlines-between": "never",
+        "pathGroups": [
+          {
+            "pattern": "@/**",
+            "group": "internal"
+          }
+        ],
+        "groups": [
+          ["builtin", "external"],
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ]
+      }
+    ]
   },
-  "plugins": ["unused-imports"]
+  "plugins": ["unused-imports"],
+  "settings": {
+    "import/ignore": ["node_modules"]
+  }
 }

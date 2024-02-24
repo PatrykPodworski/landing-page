@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import Month from "./Month";
 import expectToThrow from "@/utils/expectToThrow";
+import Month from "./Month";
 
 describe("renders correct number of weeks", () => {
   it.each([

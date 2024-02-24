@@ -1,7 +1,7 @@
 import getEnv from "@/utils/getEnv";
+import { queryByUserId } from "@/lib/db/HabitItem";
 import mapToCompletedItem from "./mapToCompletedItem";
 import groupItems from "./groupItems";
-import { queryByUserId } from "@/lib/db/HabitItem";
 
 const getHabits = async (
   inputUserId: string | undefined,

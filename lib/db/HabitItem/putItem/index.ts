@@ -1,5 +1,5 @@
-import dynamoDbDocumentClient from "../../dynamoDbDocumentClient";
 import { marshall } from "@aws-sdk/util-dynamodb";
+import dynamoDbDocumentClient from "../../dynamoDbDocumentClient";
 import { HabitItemDbo } from "../HabitItemDbo";
 import { getCommand } from "./getCommand";
 

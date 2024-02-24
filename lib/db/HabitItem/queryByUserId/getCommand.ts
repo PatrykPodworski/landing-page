@@ -1,5 +1,5 @@
-import getEnv from "@/utils/getEnv";
 import { QueryCommand } from "@aws-sdk/client-dynamodb";
+import getEnv from "@/utils/getEnv";
 
 const getCommand = (userId: string, month: number, year: number) => {
   const tableName = getEnv("TABLE_NAME");

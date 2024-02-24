@@ -1,6 +1,6 @@
 import { validateGetSingleItem } from "@/lib/db/HabitItem/querySingle";
-import { HabitItemDbo } from "..";
 import expectToThrow from "@/utils/expectToThrow";
+import { HabitItemDbo } from "..";
 
 const getMockItems = (count: number) => {
   const items: HabitItemDbo[] = Array.from({ length: count }, (_, i) => ({

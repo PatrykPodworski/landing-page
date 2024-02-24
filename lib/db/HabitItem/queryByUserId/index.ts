@@ -1,6 +1,6 @@
 import dynamoDbDocumentClient from "../../dynamoDbDocumentClient";
-import getCommand from "./getCommand";
 import serializeQueryResponse from "../utils/serializeQueryResponse";
+import getCommand from "./getCommand";
 
 const queryByUserId = async (
   userId: string,

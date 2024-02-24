@@ -1,6 +1,6 @@
 import { QueryCommand } from "@aws-sdk/client-dynamodb";
-import QuerySingleParams from "./QuerySingleParams";
 import getEnv from "@/utils/getEnv";
+import QuerySingleParams from "./QuerySingleParams";
 
 // TODO: Technical Improvement: Add index for Year, Month, Day and HabitId
 const getCommand = ({

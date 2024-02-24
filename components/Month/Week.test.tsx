@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import Week from "./Week";
 import expectToThrow from "@/utils/expectToThrow";
+import Week from "./Week";
 
 describe("always renders 7 days", () => {
   it.each([

@@ -1,6 +1,6 @@
-import dynamoDbDocumentClient from "../../dynamoDbDocumentClient";
 import { UpdateItemCommand } from "@aws-sdk/client-dynamodb";
 import getEnv from "@/utils/getEnv";
+import dynamoDbDocumentClient from "../../dynamoDbDocumentClient";
 
 // This is a one-time migration script to migrate all items to the new schema
 const migrateItems = async (items: Record<string, any>[]) => {

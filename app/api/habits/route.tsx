@@ -1,9 +1,9 @@
 import { createHmac } from "crypto";
+import { NextRequest, NextResponse } from "next/server";
 import synchronizeHabits from "@/lib/habits/synchronizeHabits";
 import getEnv from "@/utils/getEnv";
 import getHeader from "@/utils/getHeader";
 import withErrorHandling from "@/utils/withErrorHandling";
-import { NextRequest, NextResponse } from "next/server";
 
 const postHandler = async (request: NextRequest) => {
   const isRequestValid = await validateRequest(request);
