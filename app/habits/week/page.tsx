@@ -1,25 +1,11 @@
 "use client";
 
-import { getWeek, getYear } from "date-fns";
-import { useState } from "react";
 import { Week } from "@/components";
-import WeekSelector, { WeekYear } from "./WeekSelector";
+import WeekSelector from "./WeekSelector";
+import useWeekSelector from "./WeekSelector/useWeekSelector";
 
 const WeekPage = () => {
-  const currentWeekYear = getCurrentWeekYear();
-  const [weekYear, setWeekYear] = useState<WeekYear>(currentWeekYear);
-  const handleNextWeek = () => {
-    setWeekYear((x) => ({
-      week: x.week + 1,
-      year: x.year,
-    }));
-  };
-  const handlePreviousWeek = () => {
-    setWeekYear((x) => ({
-      week: x.week - 1,
-      year: x.year,
-    }));
-  };
+  const { weekYear, handleNextWeek, handlePreviousWeek } = useWeekSelector();
 
   return (
     <div className="text-white">
@@ -40,14 +26,6 @@ const WeekPage = () => {
       </div>
     </div>
   );
-};
-
-const getCurrentWeekYear = () => {
-  const now = new Date();
-  return {
-    week: getWeek(now),
-    year: getYear(now),
-  };
 };
 
 export default WeekPage;
