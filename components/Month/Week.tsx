@@ -10,11 +10,13 @@ const Week = ({
   offset = 0,
   days,
   onDayClick,
+  labels,
 }: WeekProps) => {
   if (startDay > endDay) {
     throw new Error("startDay must be less than or equal to endDay");
   }
 
+  // TODO: Refactor: Apply new label in month view
   return (
     <div className="flex gap-2" data-testid="week">
       {Array(7)
@@ -26,6 +28,11 @@ const Week = ({
             invisible={index < startDay || index > endDay}
             index={weekIndex * 7 + index - offset}
             status={days && days[weekIndex === 0 ? index - offset : index]}
+            label={
+              labels
+                ? labels[index]
+                : (weekIndex * 7 + index - offset).toLocaleString()
+            }
           />
         ))}
     </div>
@@ -39,6 +46,7 @@ export type WeekProps = {
   offset?: number;
   days?: DayStatus[];
   onDayClick?: (day: number) => void;
+  labels?: string[];
 };
 
 export default Week;

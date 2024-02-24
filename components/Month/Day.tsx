@@ -3,7 +3,13 @@
 import clsx from "clsx";
 import DayStatus from "./DayStatus";
 
-const Day = ({ invisible, index, status = "missed", onClick }: DayProps) => (
+const Day = ({
+  invisible,
+  index,
+  status = "missed",
+  onClick,
+  label,
+}: DayProps) => (
   <div
     data-testid="day"
     className={clsx(
@@ -13,7 +19,7 @@ const Day = ({ invisible, index, status = "missed", onClick }: DayProps) => (
     )}
     onClick={status === "active" && onClick ? () => onClick(index) : undefined}
   >
-    {!invisible && index + 1}
+    {!invisible && label}
   </div>
 );
 
@@ -31,6 +37,7 @@ const getDayStatusClass = (status: DayStatus) => {
 
 export type DayProps = {
   index: number;
+  label: string;
   invisible?: boolean;
   status?: DayStatus;
   onClick?: (day: number) => void;
