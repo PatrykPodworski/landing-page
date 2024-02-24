@@ -1,7 +1,6 @@
-import Button from "@/components/Button";
+import { IconButton } from "@/components";
 import { ChevronLeft, ChevronRight } from "@/icons";
 
-// TODO: Weekly Page: Make the buttons prettier
 const WeekSelector = ({
   weekYear,
   onNextWeek,
@@ -9,13 +8,13 @@ const WeekSelector = ({
 }: WeekSelectorProps) => {
   return (
     <div className="flex w-full justify-between mb-6">
-      <Button onClick={onPreviousWeek}>
+      <IconButton onClick={onPreviousWeek}>
         <ChevronLeft />
-      </Button>
+      </IconButton>
       <WeekLabel weekYear={weekYear} />
-      <Button onClick={onNextWeek}>
+      <IconButton onClick={onNextWeek}>
         <ChevronRight />
-      </Button>
+      </IconButton>
     </div>
   );
 };

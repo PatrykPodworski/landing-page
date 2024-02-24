@@ -1,9 +1,9 @@
 "use client";
 
-import Button from "@/components/Button";
+import { useEffect } from "react";
 import { motion, useAnimate, useInView } from "framer-motion";
 import Link from "next/link";
-import { useEffect } from "react";
+import { Button } from "@/components";
 
 const Home = () => {
   const [scope, animate] = useAnimate();

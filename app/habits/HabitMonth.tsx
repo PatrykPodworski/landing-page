@@ -1,9 +1,8 @@
 "use client";
 
-import DayStatus from "@/components/Month/DayStatus";
-import Month from "@/components/Month/Month";
-import completeHabit from "@/lib/habits/completeHabit";
 import { useOptimistic } from "react";
+import { Month, DayStatus } from "@/components";
+import completeHabit from "@/lib/habits/completeHabit";
 
 // TODO: Feature: Add streaks view
 // TODO: Feature: Add weekly view

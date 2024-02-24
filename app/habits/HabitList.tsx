@@ -1,9 +1,9 @@
 import { getDaysInMonth } from "date-fns/getDaysInMonth";
 import { startOfMonth } from "date-fns";
 import getHabits from "@/lib/habits/getHabits";
-import HabitMonth from "./HabitMonth";
-import DayStatus from "@/components/Month/DayStatus";
+import { DayStatus } from "@/components";
 import Habit from "@/models/Habit";
+import HabitMonth from "./HabitMonth";
 
 const HabitList = async ({ userId }: HabitListProps) => {
   const daysInMonth = getDaysInMonth(new Date());

@@ -2,7 +2,7 @@ import { WeekSkeleton } from "./WeekSkeleton";
 import { MonthProps } from "./Month";
 import { getEndDay, getNumberOfWeeks } from "./utils";
 
-export const MonthSkeleton = ({
+const MonthSkeleton = ({
   startDay = 0,
   numberOfDays,
 }: Omit<MonthProps, "days">) => {
@@ -23,3 +23,5 @@ export const MonthSkeleton = ({
     </div>
   );
 };
+
+export default MonthSkeleton;

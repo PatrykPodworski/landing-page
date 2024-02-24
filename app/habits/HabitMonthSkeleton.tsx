@@ -1,4 +1,4 @@
-import { MonthSkeleton } from "@/components/Month/MonthSkeleton";
+import { MonthSkeleton } from "@/components";
 import { HabitMonthProps } from "./HabitMonth";
 
 const HabitMonthSkeleton = ({

@@ -1,8 +1,8 @@
 "use client";
 
-import Week from "@/components/Month/Week";
-import WeekSelector, { WeekYear } from "./WeekSelector";
 import { useState } from "react";
+import { Week } from "@/components";
+import WeekSelector, { WeekYear } from "./WeekSelector";
 import { getWeek, getYear } from "date-fns";
 
 const WeekPage = () => {
