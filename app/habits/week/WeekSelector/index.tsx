@@ -1,7 +1,7 @@
 import Button from "@/components/Button";
 import { ChevronLeft, ChevronRight } from "@/icons";
 
-// TODO: Make the buttons prettier
+// TODO: Weekly Page: Make the buttons prettier
 const WeekSelector = ({
   weekYear,
   onNextWeek,
@@ -31,7 +31,7 @@ export type WeekYear = {
   year: number;
 };
 
-// TODO: Support dual month weeks
+// TODO: Weekly Page: Support dual month weeks
 const WeekLabel = ({ weekYear: { week, year } }: WeekLabelProps) => {
   return (
     <div className="flex gap-3 items-baseline ">

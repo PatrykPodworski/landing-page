@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 
-// TODO: Link the contact page when it's ready
-// TODO: Fix the return link
+// TODO: Error Page: Link the contact page when it's ready
+// TODO: Error Page: Fix the return link
 const Error = () => {
   return (
     <div className="bg-blue-800 text-white p-12 rounded-lg max-w-sm flex flex-col gap-2 items-center">

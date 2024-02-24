@@ -5,10 +5,10 @@ import Month from "@/components/Month/Month";
 import completeHabit from "@/lib/habits/completeHabit";
 import { useOptimistic } from "react";
 
-// TODO: Add streaks view
-// TODO: Add weekly view
-// TODO: Routines
-// TODO: Yearly view
+// TODO: Feature: Add streaks view
+// TODO: Feature: Add weekly view
+// TODO: Feature: Routines
+// TODO: Feature: Yearly view
 const HabitMonth = ({
   habitId,
   name,
