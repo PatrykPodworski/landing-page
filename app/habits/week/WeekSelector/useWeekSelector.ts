@@ -2,14 +2,13 @@
 
 import { useState } from "react";
 import { getWeek, getYear } from "date-fns";
-import { WeekYear } from ".";
+import WeekYear from "./WeekYear";
 
 const WEEKS_IN_YEAR = 52;
 
 const useWeekSelector = (initial?: WeekYear) => {
-  const [weekYear, setWeekYear] = useState<WeekYear>(
-    initial ?? getCurrentWeekYear()
-  );
+  const current = getCurrentWeekYear();
+  const [weekYear, setWeekYear] = useState<WeekYear>(initial ?? current);
 
   const handleNextWeek = () => {
     setWeekYear((x) => ({
@@ -25,17 +24,26 @@ const useWeekSelector = (initial?: WeekYear) => {
     }));
   };
 
+  const handleTodayWeek = () => {
+    setWeekYear(current);
+  };
+
+  const isCurrent =
+    weekYear.week === current.week && weekYear.year === current.year;
+
   return {
     weekYear,
     handleNextWeek,
     handlePreviousWeek,
+    handleTodayWeek,
+    isCurrent,
   };
 };
 
 const getCurrentWeekYear = () => {
   const now = new Date();
   return {
-    week: getWeek(now),
+    week: getWeek(now, { weekStartsOn: 1 }),
     year: getYear(now),
   };
 };
