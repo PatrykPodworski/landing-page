@@ -1,8 +1,7 @@
 "use client";
 
-import { Week } from "@/components";
-import WeekSelector from "./WeekSelector";
-import useWeekSelector from "./WeekSelector/useWeekSelector";
+import { Week, WeekSelector } from "@/components";
+import useWeekSelector from "@/components/WeekSelector/useWeekSelector";
 
 const LABELS = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
 
