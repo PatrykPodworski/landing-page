@@ -8,6 +8,7 @@ import completeHabit from "@/lib/habits/completeHabit";
 // TODO: Feature: Add weekly view
 // TODO: Feature: Routines
 // TODO: Feature: Yearly view
+// TODO: Feature: Sync only user defined habits
 const HabitMonth = ({
   habitId,
   name,

@@ -27,4 +27,30 @@ const getCommand = (userId: string, month: number, year: number) => {
   });
 };
 
+// TODO: Refactor: Builder pattern
+export const whereDayBetween = (
+  query: QueryCommand,
+  startDay: number,
+  endDay: number
+) => {
+  const filterExpression =
+    query.input.FilterExpression + " AND #Day BETWEEN :StartDay AND :EndDay";
+  const expressionAttributeNames = {
+    ...query.input.ExpressionAttributeNames,
+    "#Day": "Day",
+  };
+  const expressionAttributeValues = {
+    ...query.input.ExpressionAttributeValues,
+    ":StartDay": { N: startDay.toString() },
+    ":EndDay": { N: endDay.toString() },
+  };
+
+  return new QueryCommand({
+    ...query.input,
+    FilterExpression: filterExpression,
+    ExpressionAttributeNames: expressionAttributeNames,
+    ExpressionAttributeValues: expressionAttributeValues,
+  });
+};
+
 export default getCommand;
