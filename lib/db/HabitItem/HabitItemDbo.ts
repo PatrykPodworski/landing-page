@@ -8,6 +8,7 @@ export const HabitItemDbo = object({
   Date: string().required(),
   Day: number().min(1).max(31).required(),
   Month: number().min(0).max(11).required(),
+  Week: number().min(0).max(52).required(),
   Year: number().required(),
   Source: string().required(),
 });
