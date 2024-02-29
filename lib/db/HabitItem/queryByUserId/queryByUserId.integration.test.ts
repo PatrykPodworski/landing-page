@@ -5,7 +5,7 @@ it("should return all user's habit items for a single month", async () => {
   const userId = getEnv("TEST_USER_ID");
   const month = 0;
   const year = 2024;
-  const items = await queryByUserId(userId, month, year);
+  const items = await queryByUserId({ userId, month, year });
   expect(items.every((x) => x.Month === month)).toBeTruthy();
   expect(items.every((x) => x.Year === year)).toBeTruthy();
 });
@@ -17,7 +17,13 @@ it("should return all user's habit items between given days", async () => {
   const startDay = 1;
   const endDay = 7;
 
-  const items = await queryByUserId(userId, 0, 2024, startDay, endDay);
+  const items = await queryByUserId({
+    userId,
+    month: 0,
+    year: 2024,
+    startDay,
+    endDay,
+  });
 
   expect(items.every((x) => x.UserId === userId)).toBeTruthy();
   expect(items.every((x) => x.Month === month)).toBeTruthy();

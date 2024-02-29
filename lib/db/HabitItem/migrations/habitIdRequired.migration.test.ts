@@ -4,7 +4,11 @@ import putItem from "../putItem";
 
 it.skip("migrate habitId to required", async () => {
   const userId = getEnv("USER_ID");
-  const habitItemsWithIds = await queryByUserId(userId, 1, 2024);
+  const habitItemsWithIds = await queryByUserId({
+    userId,
+    month: 1,
+    year: 2024,
+  });
 
   const habitIds = habitItemsWithIds.reduce<Map<string, string>>(
     (acc, item) => {
@@ -20,7 +24,7 @@ it.skip("migrate habitId to required", async () => {
     new Map<string, string>()
   );
 
-  const habitItems = await queryByUserId(userId, 0, 2024);
+  const habitItems = await queryByUserId({ userId, month: 0, year: 2024 });
   const habitItemsToUpdate = habitItems.filter((x) => !x.HabitId);
   for (const item of habitItemsToUpdate) {
     const habitId = habitIds.get(item.HabitName);

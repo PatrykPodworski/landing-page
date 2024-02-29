@@ -1,4 +1,5 @@
-import { endOfWeek, format, startOfWeek } from "date-fns";
+import { format } from "date-fns";
+import { toDateRange } from "./WeekYear";
 
 // TODO: Weekly Page: Week change animation
 const WeekLabel = ({ week, year, showToday, onTodayClick }: WeekLabelProps) => {
@@ -27,9 +28,7 @@ const WeekLabel = ({ week, year, showToday, onTodayClick }: WeekLabelProps) => {
 };
 
 const getLabel = (week: number, year: number) => {
-  const date = new Date(year, 0, 1 + (week - 1) * 7);
-  const weekStart = startOfWeek(date, { weekStartsOn: 1 });
-  const weekEnd = endOfWeek(date, { weekStartsOn: 1 });
+  const [weekStart, weekEnd] = toDateRange({ week, year });
   const isSameMonth = weekStart.getMonth() === weekEnd.getMonth();
   const isSameYear = weekStart.getFullYear() === weekEnd.getFullYear();
 

@@ -11,7 +11,12 @@ const HabitList = async ({ userId }: HabitListProps) => {
 
   const currentMonth = new Date().getUTCMonth();
   const currentYear = new Date().getUTCFullYear();
-  const habits = await getHabits(userId, currentMonth, currentYear);
+  const habits = await getHabits({
+    userId: userId || "",
+    year: currentYear,
+    month: currentMonth,
+  });
+
   const habitDays = habits.map((x) => mapToDays(x, daysInMonth));
 
   return (

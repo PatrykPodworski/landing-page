@@ -4,7 +4,7 @@ import putItem from "../putItem";
 
 it.skip("adjust month", async () => {
   const userId = getEnv("USER_ID");
-  const habitItems = await queryByUserId(userId, 0, 2024);
+  const habitItems = await queryByUserId({ userId, month: 0, year: 2024 });
 
   for (const item of habitItems) {
     const date = new Date(item.Date);

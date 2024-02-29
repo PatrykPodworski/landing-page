@@ -1,12 +1,12 @@
 "use client";
 
-import { Week, WeekSelector } from "@/components";
+import { WeekSelector } from "@/components";
 import useWeekSelector from "@/components/WeekSelector/useWeekSelector";
-
-const LABELS = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
+import WeeklyHabitList from "./WeeklyHabitList";
 
 // TODO: Weekly Page: Get the data
-const WeekPage = () => {
+// TODO: Refactor: Generic searchParams type
+const WeekPage = ({ searchParams }: WeekPageProps) => {
   const {
     weekYear,
     handleNextWeek,
@@ -14,6 +14,10 @@ const WeekPage = () => {
     handleTodayWeek,
     isCurrent,
   } = useWeekSelector();
+
+  const userId =
+    typeof searchParams.userId === "string" ? searchParams.userId : "";
+
   return (
     <div className="text-white">
       <WeekSelector
@@ -23,18 +27,13 @@ const WeekPage = () => {
         onTodayClick={handleTodayWeek}
         showToday={!isCurrent}
       />
-      <div className="grid gap-x-4 gap-y-2 grid-cols-[auto_auto] items-baseline">
-        <h2>Habit name</h2>
-        <Week labels={LABELS} />
-        <h2>Habit name</h2>
-        <Week labels={LABELS} />
-        <h2>Habit name</h2>
-        <Week labels={LABELS} />
-        <h2>Habit name</h2>
-        <Week labels={LABELS} />
-      </div>
+      <WeeklyHabitList userId={userId} weekYear={weekYear} />
     </div>
   );
+};
+
+type WeekPageProps = {
+  searchParams: { [key: string]: string | string[] | undefined };
 };
 
 export default WeekPage;

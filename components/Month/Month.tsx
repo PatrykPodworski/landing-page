@@ -4,6 +4,7 @@ import DayStatus from "./DayStatus";
 import Week from "./Week";
 import { getNumberOfWeeks, getEndDay } from "./utils";
 
+// TODO: Bug: Fix tests
 const Month = ({
   startDay = 0,
   numberOfDays,
