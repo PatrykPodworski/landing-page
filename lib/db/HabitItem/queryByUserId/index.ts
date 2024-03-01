@@ -2,6 +2,7 @@ import dynamoDbDocumentClient from "../../dynamoDbDocumentClient";
 import serializeQueryResponse from "../utils/serializeQueryResponse";
 import getCommand, { whereDayBetween } from "./getCommand";
 
+// TODO: Refactor: Rename to queryByMonth
 const queryByUserId = async ({
   userId,
   month,
