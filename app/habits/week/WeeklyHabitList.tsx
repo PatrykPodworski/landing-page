@@ -9,13 +9,10 @@ const LABELS = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
 // TODO: Weekly Page: Skeleton
 // TODO: Weekly Page: Support multi year and month weeks
 const WeeklyHabitList = async ({ userId, weekYear }: WeeklyHabitListProps) => {
-  const [weekStart, weekEnd] = toDateRange(weekYear);
+  const [weekStart] = toDateRange(weekYear);
   const habits = await getHabits({
     userId,
-    year: weekYear.year,
-    month: weekStart.getMonth(),
-    startDay: weekStart.getDate(),
-    endDay: weekEnd.getDate(),
+    ...weekYear,
   });
   const habitDays = habits.map((x) => mapToDays(x, weekStart.getDate()));
 

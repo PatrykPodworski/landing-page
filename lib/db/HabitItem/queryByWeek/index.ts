@@ -10,7 +10,7 @@ const queryByWeek = async ({ userId, week, year }: QueryByWeekParams) => {
   return items;
 };
 
-type QueryByWeekParams = {
+export type QueryByWeekParams = {
   userId: string;
   week: number;
   year: number;
