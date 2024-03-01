@@ -1,4 +1,5 @@
 import { addHours } from "date-fns/addHours";
+import { getWeek } from "date-fns";
 import { ResponseItem } from "@/lib/todoist/fetchCompletedItems";
 import { HabitItemDbo } from "@/lib/db/HabitItem";
 
@@ -19,6 +20,7 @@ export const getHabitItemDateAttributes = (completedDate: Date) => {
     Day: adjustedDate.getUTCDate(),
     Month: adjustedDate.getUTCMonth(),
     Year: adjustedDate.getUTCFullYear(),
+    Week: getWeek(adjustedDate, { weekStartsOn: 1 }),
   };
 };
 

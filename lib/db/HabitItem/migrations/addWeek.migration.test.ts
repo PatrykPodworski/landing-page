@@ -3,9 +3,9 @@ import getEnv from "@/utils/getEnv";
 import { queryByUserId } from "..";
 import putItem from "../putItem";
 
-it("add week", async () => {
+it.skip("add week", async () => {
   const userId = getEnv("USER_ID");
-  const habitItems = await queryByUserId({ userId, month: 1, year: 2024 });
+  const habitItems = await queryByUserId({ userId, month: 2, year: 2024 });
 
   for (const item of habitItems) {
     const date = new Date(item.Year, item.Month, item.Day);

@@ -10,6 +10,7 @@ it.skip("playground", async () => {
     Year: 2024,
     Month: 2,
     Day: 18,
+    Week: 7,
     Date: new Date().toISOString(),
     Source: "{}",
   });

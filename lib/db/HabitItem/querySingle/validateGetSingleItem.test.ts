@@ -12,6 +12,7 @@ const getMockItems = (count: number) => {
     Date: "date",
     Day: 1,
     Month: 1,
+    Week: 1,
     Year: 2024,
   }));
 

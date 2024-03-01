@@ -31,7 +31,7 @@ const Week = ({
             label={
               labels
                 ? labels[index]
-                : (weekIndex * 7 + index - offset).toLocaleString()
+                : (weekIndex * 7 + index - offset + 1).toLocaleString()
             }
           />
         ))}
