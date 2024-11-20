@@ -1,36 +1,35 @@
 "use client";
-import { ComponentProps, useEffect, useState } from "react";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import { useRef, useState } from "react";
+import { LottieRefCurrentProps } from "lottie-react";
 
+// TODO: Fix loading state
 export const useIsLottieLoading = () => {
-  const [dotLottie, setDotLottie] = useState<Ref>(null);
+  const ref = useRef<LottieRefCurrentProps>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const callback: Callback = (dotLottie) => {
-    setDotLottie(dotLottie);
+  const handleOnClick = () => {
+    if (ref.current && ref.current.animationItem) {
+      ref.current.setDirection(
+        ref.current.animationItem.playDirection === 1 ? -1 : 1
+      );
+    }
   };
 
-  useEffect(() => {
-    const onLoad = () => {
-      setIsLoading(false);
-    };
+  // useEffect(() => {
+  //   const onLoad = () => {
+  //     setIsLoading(false);
+  //   };
 
-    if (dotLottie) {
-      dotLottie.addEventListener("load", onLoad);
-    }
+  //   if (ref.current) {
+  //     ref.current.animationLoaded;
+  //   }
 
-    return () => {
-      if (dotLottie) {
-        dotLottie.removeEventListener("load", onLoad);
-      }
-    };
-  }, [dotLottie]);
+  //   return () => {
+  //     if (ref) {
+  //       ref.removeEventListener("load", onLoad);
+  //     }
+  //   };
+  // }, [dotLottie]);
 
-  return { isLoading, callback };
+  return { isLoading, ref, handleOnClick };
 };
-
-type Callback = NonNullable<
-  ComponentProps<typeof DotLottieReact>["dotLottieRefCallback"]
->;
-
-type Ref = Parameters<Callback>[0];
