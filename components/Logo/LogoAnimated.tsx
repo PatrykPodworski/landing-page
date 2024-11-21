@@ -1,11 +1,11 @@
 "use client";
 import Lottie from "lottie-react";
 import { LogoStatic } from "./LogoStatic";
-import { useIsLottieLoading } from "./useIsLottieLoading";
 import logoAnimatedData from "./logo-animated.json";
+import { useAnimatedLogo } from "./useAnimatedLogo";
 
 export const LogoAnimated = () => {
-  const { isLoading, ref, handleOnClick } = useIsLottieLoading();
+  const { isLoading, ref, handleOnClick, onDomLoaded } = useAnimatedLogo();
 
   return (
     <div className="relative h-64 w-64">
@@ -17,6 +17,7 @@ export const LogoAnimated = () => {
         animationData={logoAnimatedData}
         className="h-64"
         lottieRef={ref}
+        onDOMLoaded={onDomLoaded}
       />
     </div>
   );
