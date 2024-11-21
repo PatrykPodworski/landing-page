@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={clsx(inter.className, "bg-slate-900")}>
-        <main className="flex min-h-dvh flex-col items-center justify-center py-4">
+        <main className="flex min-h-dvh flex-col items-center justify-center p-4">
           {children}
         </main>
       </body>

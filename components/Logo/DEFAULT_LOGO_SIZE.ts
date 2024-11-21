@@ -1,2 +1,2 @@
-// Update tailwind class in LogoAnimated when changing this value
+//TODO: Try to use this in the Logo animated component
 export const DEFAULT_LOGO_SIZE = 256;

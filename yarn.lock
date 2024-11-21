@@ -1412,25 +1412,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lottiefiles/dotlottie-react@npm:^0.9.3":
-  version: 0.9.3
-  resolution: "@lottiefiles/dotlottie-react@npm:0.9.3"
-  dependencies:
-    "@lottiefiles/dotlottie-web": "npm:0.36.1"
-  peerDependencies:
-    react: ^16.8.0 || ^17.0.0 || ^18.0.0
-    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: 5b2096a0a319e4a9993bdcbca24b1d3058e54fad396f923ed6edceb7f21d2b3bf11e3e12a02d7261605e74853235c9fd58f389769531c24726f8070256c6d404
-  languageName: node
-  linkType: hard
-
-"@lottiefiles/dotlottie-web@npm:0.36.1":
-  version: 0.36.1
-  resolution: "@lottiefiles/dotlottie-web@npm:0.36.1"
-  checksum: bb00c4328d9412972c7c6145272ef66134588d7cc72ffdc041c2acd08ae76932ae9922f480048b241f6e5ded0b6f26448c15400189410c78f0729706e29fa3c0
-  languageName: node
-  linkType: hard
-
 "@next/env@npm:14.0.4":
   version: 14.0.4
   resolution: "@next/env@npm:14.0.4"
@@ -5808,7 +5789,6 @@ __metadata:
     "@aws-sdk/client-dynamodb": "npm:^3.485.0"
     "@aws-sdk/lib-dynamodb": "npm:^3.489.0"
     "@aws-sdk/util-dynamodb": "npm:^3.490.0"
-    "@lottiefiles/dotlottie-react": "npm:^0.9.3"
     "@testing-library/jest-dom": "npm:^6.4.2"
     "@testing-library/react": "npm:^14.2.1"
     "@types/jest": "npm:^29.5.11"
@@ -5824,6 +5804,7 @@ __metadata:
     framer-motion: "npm:^11.0.2"
     jest: "npm:^29.7.0"
     jest-environment-jsdom: "npm:^29.7.0"
+    lottie-react: "npm:^2.4.0"
     next: "npm:14.0.4"
     postcss: "npm:^8"
     react: "npm:^18"
@@ -5937,6 +5918,25 @@ __metadata:
   bin:
     loose-envify: cli.js
   checksum: 655d110220983c1a4b9c0c679a2e8016d4b67f6e9c7b5435ff5979ecdb20d0813f4dec0a08674fcbdd4846a3f07edbb50a36811fd37930b94aaa0d9daceb017e
+  languageName: node
+  linkType: hard
+
+"lottie-react@npm:^2.4.0":
+  version: 2.4.0
+  resolution: "lottie-react@npm:2.4.0"
+  dependencies:
+    lottie-web: "npm:^5.10.2"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: 5c0ef3f1832b21232fe6826cc021cd90bb0e3c9d63f1047031ce77a0992092f8712b6f3a6aeeaa0f410d918ca557df160b1c776399f69b498c560273767befe0
+  languageName: node
+  linkType: hard
+
+"lottie-web@npm:^5.10.2":
+  version: 5.12.2
+  resolution: "lottie-web@npm:5.12.2"
+  checksum: 0aeaf631b10a76afd025df70c2a1486543530708e07a316946c08e55891dac483ffbaf2bf3648ae0b9c54c733118a0a086fd150aa76f7848606214c67ad72c30
   languageName: node
   linkType: hard
 
