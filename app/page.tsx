@@ -1,4 +1,5 @@
 import { LogoAnimated } from "@/components/Logo/LogoAnimated";
+import ChatbotInput from "@/components/ChatbotInput";
 
 // TODO: Update packages
 // TODO: Fix Speed Insights
@@ -10,6 +11,7 @@ const Home = () => {
       <h1 className="text-slate-50 text-4xl mb-4 text-center select-none">
         Hello, I&apos;m Patryk
       </h1>
+      <ChatbotInput />
     </div>
   );
 };
