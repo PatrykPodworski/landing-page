@@ -33,7 +33,8 @@ const ButtonAnimationWrapper = ({
     ]);
   };
 
-  const handlePointerDownAnimation = () => {
+  const handlePointerDownAnimation = (e: React.PointerEvent) => {
+    e.preventDefault();
     animate([
       ["circle", { r: "200%" }],
       ["button", { scale: 0.9 }, { at: "<" }],
@@ -56,10 +57,10 @@ const ButtonAnimationWrapper = ({
       onPointerDown={handlePointerDownAnimation}
       onPointerUp={handlePointerUpAnimation}
     >
-      <svg className="absolute overflow-hidden" width="100%" height="100%">
+      <svg className="absolute overflow-hidden pointer-events-none" width="100%" height="100%">
         <circle className="background" fill={BACKGROUND_COLOR} r={0} />
       </svg>
-      <svg className="absolute overflow-visible" width="100%" height="100%">
+      <svg className="absolute overflow-visible pointer-events-none" width="100%" height="100%">
         <motion.rect
           initial={{
             pathLength: 0,
