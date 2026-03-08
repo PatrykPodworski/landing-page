@@ -37,7 +37,7 @@ const GreetingAnimation = () => {
       if (line2.length < greeting.line2.length) {
         after(() => setLine2(greeting.line2.slice(0, line2.length + 1)), rand(60, 130));
       } else {
-        setPhase("idle");
+        after(() => setPhase("idle"), 0);
       }
     } else if (phase === "erasing") {
       if (line2.length > 0) {
@@ -45,8 +45,10 @@ const GreetingAnimation = () => {
       } else if (line1.length > 0) {
         after(() => setLine1(line1.slice(0, -1)), rand(25, 55));
       } else {
-        setLangIndex((i) => (i + 1) % GREETINGS.length);
-        setPhase("typing-line1");
+        after(() => {
+          setLangIndex((i) => (i + 1) % GREETINGS.length);
+          setPhase("typing-line1");
+        }, 0);
       }
     }
 
