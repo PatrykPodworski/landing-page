@@ -1,8 +1,13 @@
 "use client";
-import Lottie from "lottie-react";
+import dynamic from "next/dynamic";
 import { LogoStatic } from "./LogoStatic";
 import logoAnimatedData from "./logo-animated.json";
 import { useAnimatedLogo } from "./useAnimatedLogo";
+import type { LottieComponentProps } from "lottie-react";
+
+const Lottie = dynamic<LottieComponentProps>(() => import("lottie-react"), {
+  ssr: false,
+});
 
 export const LogoAnimated = () => {
   const { isLoading, ref, handleOnClick, onDomLoaded } = useAnimatedLogo();

@@ -1,6 +1,6 @@
 "use client";
 import { useRef, useState } from "react";
-import { LottieRefCurrentProps } from "lottie-react";
+import type { LottieRefCurrentProps } from "lottie-react";
 
 export const useAnimatedLogo = () => {
   const [isLoading, setIsLoading] = useState(true);
