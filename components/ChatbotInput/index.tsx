@@ -18,10 +18,23 @@ const ChatbotInput = () => {
     }
   };
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!message.trim()) return;
 
-    console.log(message);
+    try {
+      const response = await fetch("/api/message", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send message");
+      }
+    } catch {
+      return;
+    }
+
     setMessage("");
 
     if (textareaRef.current) {
