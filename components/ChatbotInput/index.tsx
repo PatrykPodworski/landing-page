@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 const ChatbotInput = () => {
   const [message, setMessage] = useState("");
@@ -9,14 +9,19 @@ const ChatbotInput = () => {
   const [isLoading, setIsLoading] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setMessage(e.target.value);
+  const MAX_LENGTH = 1024;
 
+  const adjustHeight = () => {
     const textarea = textareaRef.current;
     if (textarea) {
       textarea.style.height = "auto";
       textarea.style.height = `${textarea.scrollHeight}px`;
     }
+  };
+
+  const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setMessage(e.target.value);
+    adjustHeight();
   };
 
   const handleSend = async () => {
@@ -42,9 +47,7 @@ const ChatbotInput = () => {
     setIsLoading(false);
     setMessage("");
 
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto";
-    }
+    requestAnimationFrame(adjustHeight);
 
     setShowDialog(true);
     setTimeout(() => setShowDialog(false), 3000);
@@ -66,12 +69,15 @@ const ChatbotInput = () => {
           onChange={handleInput}
           onKeyDown={handleKeyDown}
           rows={1}
-          maxLength={1024}
+          maxLength={MAX_LENGTH}
           disabled={isLoading}
           placeholder="How can I help you today?"
-          className="w-full resize-none overflow-hidden bg-transparent text-zinc-100 text-base placeholder-zinc-400 focus:outline-none disabled:opacity-50"
+          className="w-full resize-none overflow-hidden bg-transparent text-zinc-100 text-base placeholder-zinc-400 focus:outline-none disabled:opacity-50 transition-[height] duration-200 ease-out"
         />
-        <div className="flex items-center justify-end">
+        <div className="flex items-center justify-between">
+          <span className="text-xs text-zinc-500">
+            {message.length}/{MAX_LENGTH}
+          </span>
           <motion.button
             type="button"
             onClick={handleSend}
@@ -111,11 +117,21 @@ const ChatbotInput = () => {
         </div>
       </div>
 
-      {showDialog && (
-        <div className="bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-zinc-300 text-sm animate-fade-in">
-          Thanks for your message! I will answer you shortly.
-        </div>
-      )}
+      <AnimatePresence>
+        {showDialog && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="overflow-hidden"
+          >
+            <div className="bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-zinc-300 text-sm">
+              Thanks for your message! I will answer you shortly.
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
