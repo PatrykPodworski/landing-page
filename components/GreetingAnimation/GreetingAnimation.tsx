@@ -2,7 +2,7 @@
 
 import { TypeAnimation } from "react-type-animation";
 
-export const GreetingAnimation = () => {
+const GreetingAnimation = () => {
   return (
     <h1 className="text-slate-50 text-4xl mb-4 text-center select-none min-h-[3rem]">
       <TypeAnimation
@@ -28,3 +28,5 @@ export const GreetingAnimation = () => {
     </h1>
   );
 };
+
+export default GreetingAnimation;

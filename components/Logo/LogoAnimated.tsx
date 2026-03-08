@@ -9,7 +9,7 @@ const Lottie = dynamic<LottieComponentProps>(() => import("lottie-react"), {
   ssr: false,
 });
 
-export const LogoAnimated = () => {
+const LogoAnimated = () => {
   const { isLoading, ref, handleOnClick, onDomLoaded } = useAnimatedLogo();
 
   return (
@@ -27,3 +27,6 @@ export const LogoAnimated = () => {
     </div>
   );
 };
+
+export { LogoAnimated };
+export default LogoAnimated;

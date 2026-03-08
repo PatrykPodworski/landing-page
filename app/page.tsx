@@ -1,5 +1,14 @@
-import { LogoAnimated } from "@/components/Logo/LogoAnimated";
-import { GreetingAnimation } from "@/components/GreetingAnimation/GreetingAnimation";
+import dynamic from "next/dynamic";
+
+const LogoAnimated = dynamic(
+  () => import("@/components/Logo/LogoAnimated"),
+  { ssr: false }
+);
+
+const GreetingAnimation = dynamic(
+  () => import("@/components/GreetingAnimation/GreetingAnimation"),
+  { ssr: false }
+);
 
 // TODO: Update packages
 // TODO: Fix Speed Insights

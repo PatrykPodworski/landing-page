@@ -3,7 +3,7 @@ import Script from "next/script";
 const GoogleTag = () => {
   const gaMeasurementId = process.env.GA_MEASUREMENT_ID;
   if (!gaMeasurementId) {
-    throw new Error("Missing GA_MEASUREMENT_ID");
+    return null;
   }
 
   return (

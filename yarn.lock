@@ -1292,6 +1292,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fontsource-variable/inter@npm:^5.2.8":
+  version: 5.2.8
+  resolution: "@fontsource-variable/inter@npm:5.2.8"
+  checksum: 35b46df31c8c18f55f87228acf6297e4dac6cc9f38d0faaafdaf5a40e40c386cf1bfb115fb0fe0dcdb9b7e14f582843693ccf070d9c903072a5b2fc0f8dfde56
+  languageName: node
+  linkType: hard
+
 "@humanfs/core@npm:^0.19.1":
   version: 0.19.1
   resolution: "@humanfs/core@npm:0.19.1"
@@ -7065,6 +7072,7 @@ __metadata:
     "@aws-sdk/client-dynamodb": "npm:^3.485.0"
     "@aws-sdk/lib-dynamodb": "npm:^3.489.0"
     "@aws-sdk/util-dynamodb": "npm:^3.490.0"
+    "@fontsource-variable/inter": "npm:^5.2.8"
     "@testing-library/jest-dom": "npm:^6.4.2"
     "@testing-library/react": "npm:^14.2.1"
     "@types/jest": "npm:^29.5.11"
