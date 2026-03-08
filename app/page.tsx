@@ -1,13 +1,7 @@
-import dynamic from "next/dynamic";
+import { LogoAnimated } from "@/components/Logo/LogoAnimated";
 
 // TODO: Update packages
 // TODO: Fix Speed Insights
-
-const LogoAnimated = dynamic(
-  () =>
-    import("@/components/Logo/LogoAnimated").then((mod) => mod.LogoAnimated),
-  { ssr: false }
-);
 
 const Home = () => {
   return (
