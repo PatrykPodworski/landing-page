@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 const ChatbotInput = () => {
   const [message, setMessage] = useState("");
   const [showDialog, setShowDialog] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -19,7 +20,9 @@ const ChatbotInput = () => {
   };
 
   const handleSend = async () => {
-    if (!message.trim()) return;
+    if (!message.trim() || isLoading) return;
+
+    setIsLoading(true);
 
     try {
       const response = await fetch("/api/message", {
@@ -32,9 +35,11 @@ const ChatbotInput = () => {
         throw new Error("Failed to send message");
       }
     } catch {
+      setIsLoading(false);
       return;
     }
 
+    setIsLoading(false);
     setMessage("");
 
     if (textareaRef.current) {
@@ -61,30 +66,47 @@ const ChatbotInput = () => {
           onChange={handleInput}
           onKeyDown={handleKeyDown}
           rows={1}
+          maxLength={1024}
+          disabled={isLoading}
           placeholder="How can I help you today?"
-          className="w-full resize-none overflow-hidden bg-transparent text-zinc-100 text-base placeholder-zinc-400 focus:outline-none"
+          className="w-full resize-none overflow-hidden bg-transparent text-zinc-100 text-base placeholder-zinc-400 focus:outline-none disabled:opacity-50"
         />
         <div className="flex items-center justify-end">
           <motion.button
             type="button"
             onClick={handleSend}
+            disabled={isLoading}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="w-8 h-8 rounded-lg flex items-center justify-center text-zinc-400 hover:text-zinc-200 transition-colors cursor-pointer"
+            className="w-8 h-8 rounded-lg flex items-center justify-center text-zinc-400 hover:text-zinc-200 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="5" y1="12" x2="19" y2="12" />
-              <polyline points="12 5 19 12 12 19" />
-            </svg>
+            {isLoading ? (
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                className="animate-spin"
+              >
+                <circle cx="12" cy="12" r="10" strokeDasharray="32" strokeDashoffset="12" />
+              </svg>
+            ) : (
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            )}
           </motion.button>
         </div>
       </div>
