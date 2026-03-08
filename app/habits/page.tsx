@@ -3,8 +3,11 @@ import HabitList from "./HabitList";
 import HabitListSkeleton from "./HabitListSkeleton";
 
 const Habits = async ({ searchParams }: HabitsProps) => {
+  const resolvedSearchParams = await searchParams;
   const userId =
-    typeof searchParams.userId === "string" ? searchParams.userId : undefined;
+    typeof resolvedSearchParams.userId === "string"
+      ? resolvedSearchParams.userId
+      : undefined;
 
   return (
     <Suspense fallback={<HabitListSkeleton />}>
@@ -14,7 +17,7 @@ const Habits = async ({ searchParams }: HabitsProps) => {
 };
 
 type HabitsProps = {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 export default Habits;

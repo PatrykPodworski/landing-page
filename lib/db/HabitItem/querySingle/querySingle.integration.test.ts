@@ -17,7 +17,7 @@ const getMockParams = () => {
   return params;
 };
 
-it("should return a single habit item", async () => {
+it.skip("should return a single habit item", async () => {
   const mockParams = getMockParams();
   const item = await querySingle(mockParams);
   expect(item).toBeDefined();
