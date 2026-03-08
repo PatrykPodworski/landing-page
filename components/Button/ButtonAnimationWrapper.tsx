@@ -33,7 +33,8 @@ const ButtonAnimationWrapper = ({
     ]);
   };
 
-  const handlePointerDownAnimation = () => {
+  const handlePointerDownAnimation = (e: React.PointerEvent) => {
+    e.preventDefault();
     animate([
       ["circle", { r: "200%" }],
       ["button", { scale: 0.9 }, { at: "<" }],
