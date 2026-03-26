@@ -24,7 +24,7 @@ export const translations = {
   },
   es: {
     greeting: "Hola",
-    home_title_suffix: "Soy Patryk",
+    home_title_suffix: "soy Patryk",
     chatbot_placeholder: "¿Cómo puedo ayudarte hoy?",
     chatbot_success: "¡Gracias por tu mensaje! Te responderé en breve.",
     error_title: "¡Vaya!",
