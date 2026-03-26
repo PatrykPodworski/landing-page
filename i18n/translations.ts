@@ -1,7 +1,6 @@
 export const translations = {
   en: {
-    greeting: "Hello",
-    home_title_suffix: "I'm Patryk",
+    heading: "Hello, I'm Patryk",
     chatbot_placeholder: "How can I help you today?",
     chatbot_success: "Thanks for your message! I will answer you shortly.",
     error_title: "Oops!",
@@ -11,8 +10,7 @@ export const translations = {
     logo_alt: "podwor.ski logo",
   },
   pl: {
-    greeting: "Cześć",
-    home_title_suffix: "jestem Patryk",
+    heading: "Cześć, jestem Patryk",
     chatbot_placeholder: "W czym mogę Ci dzisiaj pomóc?",
     chatbot_success: "Dzięki za wiadomość! Odpiszę wkrótce.",
     error_title: "Ups!",
@@ -23,8 +21,7 @@ export const translations = {
     logo_alt: "logo podwor.ski",
   },
   es: {
-    greeting: "Hola",
-    home_title_suffix: "soy Patryk",
+    heading: "Hola, soy Patryk",
     chatbot_placeholder: "¿Cómo puedo ayudarte hoy?",
     chatbot_success: "¡Gracias por tu mensaje! Te responderé en breve.",
     error_title: "¡Vaya!",
