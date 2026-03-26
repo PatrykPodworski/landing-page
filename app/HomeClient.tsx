@@ -9,9 +9,9 @@ export default function HomeClient() {
     <AnimatePresence mode="wait">
       <motion.h1
         key={locale}
-        initial={{ filter: "blur(8px)" }}
+        initial={{ filter: "blur(20px)" }}
         animate={{ filter: "blur(0px)" }}
-        exit={{ filter: "blur(8px)" }}
+        exit={{ filter: "blur(20px)" }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
         className="text-zinc-200 text-4xl text-center select-none font-serif italic"
       >
