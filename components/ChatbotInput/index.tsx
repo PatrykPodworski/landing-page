@@ -2,8 +2,10 @@
 
 import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useTranslations } from "@/i18n/i18nContext";
 
 const ChatbotInput = () => {
+  const { t } = useTranslations();
   const [message, setMessage] = useState("");
   const [showDialog, setShowDialog] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -71,7 +73,7 @@ const ChatbotInput = () => {
           rows={1}
           maxLength={MAX_LENGTH}
           disabled={isLoading}
-          placeholder="How can I help you today?"
+          placeholder={t("chatbot_placeholder")}
           className="w-full resize-none overflow-hidden bg-transparent text-zinc-100 text-base placeholder-zinc-400 focus:outline-none disabled:opacity-50 transition-[height] duration-200 ease-out"
         />
         <div className="flex items-center justify-between">
@@ -127,7 +129,7 @@ const ChatbotInput = () => {
             className="overflow-hidden"
           >
             <div className="bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-zinc-300 text-sm">
-              Thanks for your message! I will answer you shortly.
+              {t("chatbot_success")}
             </div>
           </motion.div>
         )}
