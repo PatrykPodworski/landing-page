@@ -1,8 +1,6 @@
 export const translations = {
   en: {
-    greeting_morning: "Good morning",
-    greeting_afternoon: "Good afternoon",
-    greeting_evening: "Good evening",
+    greeting: "Hello",
     home_title_suffix: "I'm Patryk",
     chatbot_placeholder: "How can I help you today?",
     chatbot_success: "Thanks for your message! I will answer you shortly.",
@@ -13,9 +11,7 @@ export const translations = {
     logo_alt: "podwor.ski logo",
   },
   pl: {
-    greeting_morning: "Dzień dobry",
-    greeting_afternoon: "Dzień dobry",
-    greeting_evening: "Dobry wieczór",
+    greeting: "Cześć",
     home_title_suffix: "jestem Patryk",
     chatbot_placeholder: "W czym mogę Ci dzisiaj pomóc?",
     chatbot_success: "Dzięki za wiadomość! Odpiszę wkrótce.",
@@ -27,9 +23,7 @@ export const translations = {
     logo_alt: "logo podwor.ski",
   },
   es: {
-    greeting_morning: "Buenos días",
-    greeting_afternoon: "Buenas tardes",
-    greeting_evening: "Buenas noches",
+    greeting: "Hola",
     home_title_suffix: "Soy Patryk",
     chatbot_placeholder: "¿Cómo puedo ayudarte hoy?",
     chatbot_success: "¡Gracias por tu mensaje! Te responderé en breve.",
