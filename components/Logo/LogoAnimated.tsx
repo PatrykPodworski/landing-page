@@ -4,6 +4,7 @@ import { LogoStatic } from "./LogoStatic";
 import logoAnimatedData from "./logo-animated.json";
 import { useAnimatedLogo } from "./useAnimatedLogo";
 import type { LottieComponentProps } from "lottie-react";
+import { useTranslations } from "@/i18n/i18nContext";
 
 const Lottie = dynamic<LottieComponentProps>(() => import("lottie-react"), {
   ssr: false,
@@ -11,11 +12,12 @@ const Lottie = dynamic<LottieComponentProps>(() => import("lottie-react"), {
 
 export const LogoAnimated = () => {
   const { isLoading, ref, handleOnClick, onDomLoaded } = useAnimatedLogo();
+  const { t } = useTranslations();
 
   return (
     <div className="relative h-64 w-64">
       {isLoading && (
-        <LogoStatic className={`absolute left-[calc(50%-128px)]`} />
+        <LogoStatic className={`absolute left-[calc(50%-128px)]`} alt={t("logo_alt")} />
       )}
       <Lottie
         onClick={handleOnClick}
