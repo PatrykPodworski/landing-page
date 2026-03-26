@@ -16,7 +16,7 @@ export const translations = {
     greeting_morning: "Dzień dobry",
     greeting_afternoon: "Dzień dobry",
     greeting_evening: "Dobry wieczór",
-    home_title_suffix: "Jestem Patryk",
+    home_title_suffix: "jestem Patryk",
     chatbot_placeholder: "Jak mogę Ci pomóc?",
     chatbot_success: "Dzięki za wiadomość! Odpiszę wkrótce.",
     error_title: "Ups!",
