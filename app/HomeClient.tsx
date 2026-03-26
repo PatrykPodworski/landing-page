@@ -9,10 +9,10 @@ export default function HomeClient() {
     <AnimatePresence mode="wait">
       <motion.h1
         key={locale}
-        initial={{ filter: "blur(12px)", opacity: 0 }}
+        initial={{ filter: "blur(8px)", opacity: 0.4 }}
         animate={{ filter: "blur(0px)", opacity: 1 }}
-        exit={{ filter: "blur(12px)", opacity: 0 }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
+        exit={{ filter: "blur(8px)", opacity: 0.4 }}
+        transition={{ duration: 0.15, ease: "easeInOut" }}
         className="text-zinc-200 text-4xl text-center select-none font-serif italic"
       >
         {t("heading")}
