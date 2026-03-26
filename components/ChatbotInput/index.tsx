@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslations } from "@/i18n/i18nContext";
+import BlurOnLocaleChange from "@/components/BlurOnLocaleChange";
 
 const ChatbotInput = () => {
   const { t } = useTranslations();
@@ -65,17 +66,25 @@ const ChatbotInput = () => {
   return (
     <div className="flex flex-col gap-3 items-center w-full max-w-2xl">
       <div className="w-full rounded-2xl bg-zinc-700/50 border border-zinc-600/50 p-4 flex flex-col gap-3">
-        <textarea
-          ref={textareaRef}
-          value={message}
-          onChange={handleInput}
-          onKeyDown={handleKeyDown}
-          rows={1}
-          maxLength={MAX_LENGTH}
-          disabled={isLoading}
-          placeholder={t("chatbot_placeholder")}
-          className="w-full resize-none overflow-hidden bg-transparent text-zinc-100 text-base placeholder-zinc-400 focus:outline-none disabled:opacity-50 transition-[height] duration-200 ease-out"
-        />
+        <div className="relative">
+          <textarea
+            ref={textareaRef}
+            value={message}
+            onChange={handleInput}
+            onKeyDown={handleKeyDown}
+            rows={1}
+            maxLength={MAX_LENGTH}
+            disabled={isLoading}
+            className="w-full resize-none overflow-hidden bg-transparent text-zinc-100 text-base focus:outline-none disabled:opacity-50 transition-[height] duration-200 ease-out"
+          />
+          {!message && (
+            <div className="absolute inset-0 pointer-events-none flex items-start">
+              <BlurOnLocaleChange className="text-zinc-400 text-base">
+                {t("chatbot_placeholder")}
+              </BlurOnLocaleChange>
+            </div>
+          )}
+        </div>
         <div className="flex items-center justify-between">
           <span className="text-xs text-zinc-500">
             {message.length}/{MAX_LENGTH}
