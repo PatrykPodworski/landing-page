@@ -21,7 +21,8 @@ export const POST = withErrorHandling(async (request: NextRequest) => {
   const baseId = getEnv("AIRTABLE_BASE_ID");
   const tableId = getEnv("AIRTABLE_TABLE_ID");
 
-  const filterFormula = `AND({user-id}="${userId}",DATESTR(CREATED_TIME())=DATESTR(TODAY()))`;
+  const today = new Date().toISOString().split("T")[0];
+  const filterFormula = `AND({user-id}="${userId}",DATETIME_FORMAT(CREATED_TIME(),'YYYY-MM-DD')="${today}")`;
   const countUrl = `https://api.airtable.com/v0/${baseId}/${tableId}?filterByFormula=${encodeURIComponent(filterFormula)}&fields[]=user-id`;
 
   const countResponse = await fetch(countUrl, {
