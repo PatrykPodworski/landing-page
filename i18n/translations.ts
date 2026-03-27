@@ -16,7 +16,7 @@ export const translations = {
     chatbot_placeholder: "W czym mogę Ci dzisiaj pomóc?",
     chatbot_success: "Dzięki za wiadomość! Odpiszę wkrótce.",
     chatbot_limit_reached:
-      "Osiągnąłeś dzienny limit wiadomości. Spróbuj ponownie jutro.",
+      "Osiągnięto dzienny limit wiadomości. Spróbuj ponownie jutro.",
     error_title: "Ups!",
     error_subtitle: "Coś poszło nie tak",
     error_body:
