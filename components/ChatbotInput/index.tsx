@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslations } from "@/i18n/i18nContext";
 import BlurOnLocaleChange from "@/components/BlurOnLocaleChange";
@@ -10,7 +10,17 @@ const ChatbotInput = () => {
   const [message, setMessage] = useState("");
   const [showDialog, setShowDialog] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [userId, setUserId] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    let uid = localStorage.getItem("_uid");
+    if (!uid) {
+      uid = crypto.randomUUID();
+      localStorage.setItem("_uid", uid);
+    }
+    setUserId(uid);
+  }, []);
 
   const MAX_LENGTH = 1024;
 
@@ -36,7 +46,7 @@ const ChatbotInput = () => {
       const response = await fetch("/api/message", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message }),
+        body: JSON.stringify({ message, userId }),
       });
 
       if (!response.ok) {

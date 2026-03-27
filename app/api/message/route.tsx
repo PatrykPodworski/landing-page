@@ -3,10 +3,14 @@ import getEnv from "@/utils/getEnv";
 import withErrorHandling from "@/utils/withErrorHandling";
 
 export const POST = withErrorHandling(async (request: NextRequest) => {
-  const { message } = await request.json();
+  const { message, userId } = await request.json();
 
   if (!message || typeof message !== "string") {
     return NextResponse.json({ error: "Message is required" }, { status: 400 });
+  }
+
+  if (!userId || typeof userId !== "string") {
+    return NextResponse.json({ error: "User ID is required" }, { status: 400 });
   }
 
   const pat = getEnv("AIRTABLE_PAT");
@@ -22,7 +26,7 @@ export const POST = withErrorHandling(async (request: NextRequest) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        records: [{ fields: { Message: message } }],
+        records: [{ fields: { Message: message, "User ID": userId } }],
       }),
     }
   );
