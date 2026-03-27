@@ -21,21 +21,27 @@ export const POST = withErrorHandling(async (request: NextRequest) => {
   const baseId = getEnv("AIRTABLE_BASE_ID");
   const tableId = getEnv("AIRTABLE_TABLE_ID");
 
-  const filterFormula = `AND({user-id}="${userId}",IS_SAME(CREATED_TIME(),TODAY(),'day'))`;
+  const filterFormula = `AND({user-id}="${userId}",DATESTR(CREATED_TIME())=DATESTR(TODAY()))`;
   const countUrl = `https://api.airtable.com/v0/${baseId}/${tableId}?filterByFormula=${encodeURIComponent(filterFormula)}&fields[]=user-id`;
 
   const countResponse = await fetch(countUrl, {
     headers: { Authorization: `Bearer ${pat}` },
   });
 
-  if (countResponse.ok) {
-    const countData = await countResponse.json();
-    if (countData.records && countData.records.length >= DAILY_LIMIT) {
-      return NextResponse.json(
-        { error: "Daily message limit reached" },
-        { status: 429 }
-      );
-    }
+  if (!countResponse.ok) {
+    const error = await countResponse.text();
+    return NextResponse.json(
+      { error: `AirTable error: ${error}` },
+      { status: 500 }
+    );
+  }
+
+  const countData = await countResponse.json();
+  if (countData.records && countData.records.length >= DAILY_LIMIT) {
+    return NextResponse.json(
+      { error: "Daily message limit reached" },
+      { status: 429 }
+    );
   }
 
   const response = await fetch(
