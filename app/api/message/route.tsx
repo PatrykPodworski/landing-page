@@ -22,10 +22,15 @@ export const POST = withErrorHandling(async (request: NextRequest) => {
   const tableId = getEnv("AIRTABLE_TABLE_ID");
 
   const today = new Date().toISOString().split("T")[0];
-  const userKey = `${userId}_${today}`;
 
-  const filterFormula = `{user-id}="${userKey}"`;
-  const countUrl = `https://api.airtable.com/v0/${baseId}/${tableId}?filterByFormula=${encodeURIComponent(filterFormula)}&fields[]=user-id`;
+  const countParams = new URLSearchParams({
+    filterByFormula: `{user-id}="${userId}"`,
+    maxRecords: String(DAILY_LIMIT),
+    "fields[]": "created-at",
+    "sort[0][field]": "created-at",
+    "sort[0][direction]": "desc",
+  });
+  const countUrl = `https://api.airtable.com/v0/${baseId}/${tableId}?${countParams}`;
 
   const countResponse = await fetch(countUrl, {
     headers: { Authorization: `Bearer ${pat}` },
@@ -40,7 +45,12 @@ export const POST = withErrorHandling(async (request: NextRequest) => {
   }
 
   const countData = await countResponse.json();
-  if (countData.records && countData.records.length >= DAILY_LIMIT) {
+  const todayCount = countData.records.filter(
+    (r: { fields: { "created-at"?: string } }) =>
+      r.fields["created-at"]?.startsWith(today)
+  ).length;
+
+  if (todayCount >= DAILY_LIMIT) {
     return NextResponse.json(
       { error: "Daily message limit reached" },
       { status: 429 }
@@ -56,7 +66,7 @@ export const POST = withErrorHandling(async (request: NextRequest) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        records: [{ fields: { Message: message, "user-id": userKey } }],
+        records: [{ fields: { Message: message, "user-id": userId } }],
       }),
     }
   );
