@@ -26,7 +26,7 @@ export const POST = withErrorHandling(async (request: NextRequest) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        records: [{ fields: { Message: message, "User ID": userId } }],
+        records: [{ fields: { Message: message, "user-id": userId } }],
       }),
     }
   );
