@@ -9,6 +9,7 @@ const ChatbotInput = () => {
   const { t } = useTranslations();
   const [message, setMessage] = useState("");
   const [showDialog, setShowDialog] = useState(false);
+  const [limitReached, setLimitReached] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [userId, setUserId] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -49,6 +50,12 @@ const ChatbotInput = () => {
         body: JSON.stringify({ message, userId }),
       });
 
+      if (response.status === 429) {
+        setIsLoading(false);
+        setLimitReached(true);
+        return;
+      }
+
       if (!response.ok) {
         throw new Error("Failed to send message");
       }
@@ -84,7 +91,7 @@ const ChatbotInput = () => {
             onKeyDown={handleKeyDown}
             rows={1}
             maxLength={MAX_LENGTH}
-            disabled={isLoading}
+            disabled={isLoading || limitReached}
             className="w-full resize-none overflow-hidden bg-transparent text-zinc-100 text-base focus:outline-none disabled:opacity-50 transition-[height] duration-200 ease-out"
           />
           {!message && (
@@ -102,7 +109,7 @@ const ChatbotInput = () => {
           <motion.button
             type="button"
             onClick={handleSend}
-            disabled={isLoading}
+            disabled={isLoading || limitReached}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="w-8 h-8 rounded-lg flex items-center justify-center text-zinc-400 hover:text-zinc-200 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
@@ -149,6 +156,19 @@ const ChatbotInput = () => {
           >
             <div className="bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-zinc-300 text-sm">
               {t("chatbot_success")}
+            </div>
+          </motion.div>
+        )}
+        {limitReached && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="overflow-hidden"
+          >
+            <div className="bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-zinc-300 text-sm">
+              {t("chatbot_limit_reached")}
             </div>
           </motion.div>
         )}

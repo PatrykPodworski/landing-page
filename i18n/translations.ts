@@ -3,6 +3,8 @@ export const translations = {
     heading: "Hello, I'm Patryk",
     chatbot_placeholder: "How can I help you today?",
     chatbot_success: "Thanks for your message! I will answer you shortly.",
+    chatbot_limit_reached:
+      "You have reached the daily message limit. Please try again tomorrow.",
     error_title: "Oops!",
     error_subtitle: "Something went wrong",
     error_body: "Please try again later. If the problem persists, contact me.",
@@ -13,6 +15,8 @@ export const translations = {
     heading: "Cześć, jestem Patryk",
     chatbot_placeholder: "W czym mogę Ci dzisiaj pomóc?",
     chatbot_success: "Dzięki za wiadomość! Odpiszę wkrótce.",
+    chatbot_limit_reached:
+      "Osiągnięto dzienny limit wiadomości. Spróbuj ponownie jutro.",
     error_title: "Ups!",
     error_subtitle: "Coś poszło nie tak",
     error_body:
@@ -24,6 +28,8 @@ export const translations = {
     heading: "Hola, soy Patryk",
     chatbot_placeholder: "¿Cómo puedo ayudarte hoy?",
     chatbot_success: "¡Gracias por tu mensaje! Te responderé en breve.",
+    chatbot_limit_reached:
+      "Has alcanzado el límite diario de mensajes. Por favor, inténtalo mañana.",
     error_title: "¡Vaya!",
     error_subtitle: "Algo salió mal",
     error_body:
