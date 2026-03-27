@@ -5,6 +5,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useTranslations } from "@/i18n/i18nContext";
 import BlurOnLocaleChange from "@/components/BlurOnLocaleChange";
 
+const infoboxAnimation = {
+  initial: { opacity: 0, y: -6, scale: 0.97 },
+  animate: { opacity: 1, y: 0, scale: 1 },
+  exit: { opacity: 0, y: -4, scale: 0.98 },
+  transition: { duration: 0.2, ease: [0.23, 1, 0.32, 1] as const },
+};
+
 const ChatbotInput = () => {
   const { t } = useTranslations();
   const [message, setMessage] = useState("");
@@ -147,29 +154,14 @@ const ChatbotInput = () => {
 
       <AnimatePresence>
         {showDialog && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="overflow-hidden"
-          >
+          <motion.div {...infoboxAnimation}>
             <div className="bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-zinc-300 text-sm">
               {t("chatbot_success")}
             </div>
           </motion.div>
         )}
         {limitReached && (
-          <motion.div
-            initial={{ opacity: 0, y: -6, scale: 0.97 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -4, scale: 0.98 }}
-            transition={{
-              enter: { duration: 0.2, ease: [0.23, 1, 0.32, 1] },
-              exit: { duration: 0.15, ease: [0.23, 1, 0.32, 1] },
-              default: { duration: 0.2, ease: [0.23, 1, 0.32, 1] },
-            }}
-          >
+          <motion.div {...infoboxAnimation}>
             <div className="bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-zinc-300 text-sm">
               {t("chatbot_limit_reached")}
             </div>
