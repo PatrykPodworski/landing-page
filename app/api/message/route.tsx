@@ -24,11 +24,9 @@ export const POST = withErrorHandling(async (request: NextRequest) => {
   const today = new Date().toISOString().split("T")[0];
 
   const countParams = new URLSearchParams({
-    filterByFormula: `{user-id}="${userId}"`,
+    filterByFormula: `AND({user-id}="${userId}",{created-at}>="${today}")`,
     maxRecords: String(DAILY_LIMIT),
     "fields[]": "created-at",
-    "sort[0][field]": "created-at",
-    "sort[0][direction]": "desc",
   });
 
   const countResponse = await fetch(
@@ -46,12 +44,7 @@ export const POST = withErrorHandling(async (request: NextRequest) => {
   }
 
   const { records } = await countResponse.json();
-  const todayCount = records.filter(
-    (r: { fields: { "created-at"?: string } }) =>
-      r.fields["created-at"]?.startsWith(today)
-  ).length;
-
-  if (todayCount >= DAILY_LIMIT) {
+  if (records.length >= DAILY_LIMIT) {
     return NextResponse.json(
       { error: "Daily message limit reached" },
       { status: 429 }
