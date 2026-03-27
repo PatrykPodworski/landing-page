@@ -23,6 +23,7 @@ export default function BlurOnLocaleChange({ children, className }: Props) {
     if (locale === prevLocale.current) return;
     prevLocale.current = locale;
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setBlurred(true);
     const id = setTimeout(() => {
       setDisplayedChildren(children);
