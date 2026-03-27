@@ -8,12 +8,15 @@ const UUID_REGEX =
 
 export const POST = withErrorHandling(async (request: NextRequest) => {
   const { message, userId } = await request.json();
+  console.log("[message] userId:", userId, "message length:", message?.length);
 
   if (!message || typeof message !== "string") {
+    console.log("[message] rejected: missing message");
     return NextResponse.json({ error: "Message is required" }, { status: 400 });
   }
 
   if (!userId || typeof userId !== "string" || !UUID_REGEX.test(userId)) {
+    console.log("[message] rejected: invalid userId");
     return NextResponse.json({ error: "User ID is required" }, { status: 400 });
   }
 
@@ -22,6 +25,7 @@ export const POST = withErrorHandling(async (request: NextRequest) => {
   const tableId = getEnv("AIRTABLE_TABLE_ID");
 
   const today = new Date().toISOString().split("T")[0];
+  console.log("[message] today:", today);
 
   const countParams = new URLSearchParams({
     filterByFormula: `{user-id}="${userId}"`,
@@ -31,13 +35,17 @@ export const POST = withErrorHandling(async (request: NextRequest) => {
     "sort[0][direction]": "desc",
   });
   const countUrl = `https://api.airtable.com/v0/${baseId}/${tableId}?${countParams}`;
+  console.log("[message] count query:", countUrl.replace(pat, "[PAT]"));
 
   const countResponse = await fetch(countUrl, {
     headers: { Authorization: `Bearer ${pat}` },
   });
 
+  console.log("[message] count response status:", countResponse.status);
+
   if (!countResponse.ok) {
     const error = await countResponse.text();
+    console.log("[message] count query failed:", error);
     return NextResponse.json(
       { error: `AirTable error: ${error}` },
       { status: 500 }
@@ -45,12 +53,16 @@ export const POST = withErrorHandling(async (request: NextRequest) => {
   }
 
   const countData = await countResponse.json();
+  console.log("[message] records returned:", JSON.stringify(countData.records));
+
   const todayCount = countData.records.filter(
     (r: { fields: { "created-at"?: string } }) =>
       r.fields["created-at"]?.startsWith(today)
   ).length;
+  console.log("[message] todayCount:", todayCount);
 
   if (todayCount >= DAILY_LIMIT) {
+    console.log("[message] limit reached, rejecting");
     return NextResponse.json(
       { error: "Daily message limit reached" },
       { status: 429 }
@@ -71,8 +83,11 @@ export const POST = withErrorHandling(async (request: NextRequest) => {
     }
   );
 
+  console.log("[message] insert response status:", response.status);
+
   if (!response.ok) {
     const error = await response.text();
+    console.log("[message] insert failed:", error);
     return NextResponse.json(
       { error: `AirTable error: ${error}` },
       { status: response.status }
@@ -80,5 +95,6 @@ export const POST = withErrorHandling(async (request: NextRequest) => {
   }
 
   const data = await response.json();
+  console.log("[message] insert success, record id:", data.records?.[0]?.id);
   return NextResponse.json(data);
 });
