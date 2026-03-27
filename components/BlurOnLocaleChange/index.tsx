@@ -9,8 +9,8 @@ type Props = {
   className?: string;
 };
 
-const BLUR_DURATION = 0.2;
-const WIDTH_DURATION = 0.2;
+const BLUR_IN_MS = 200;
+const BLUR_OUT_MS = 150;
 const BLUR_PX = 8;
 
 export default function BlurOnLocaleChange({ children, className }: Props) {
@@ -28,19 +28,23 @@ export default function BlurOnLocaleChange({ children, className }: Props) {
     const id = setTimeout(() => {
       setDisplayedChildren(children);
       setBlurred(false);
-    }, BLUR_DURATION * 1000);
+    }, BLUR_IN_MS);
     return () => clearTimeout(id);
   }, [locale, children]);
 
   return (
     <motion.span
       layout
-      animate={{ filter: blurred ? `blur(${BLUR_PX}px)` : "blur(0px)" }}
       transition={{
-        filter: { duration: BLUR_DURATION, ease: [0.4, 0, 0.2, 1] },
-        layout: { duration: WIDTH_DURATION, ease: [0.4, 0, 0.2, 1] },
+        layout: { duration: 0.2, ease: [0.23, 1, 0.32, 1] },
       }}
-      style={{ display: "inline-block" }}
+      style={{
+        display: "inline-block",
+        filter: blurred ? `blur(${BLUR_PX}px)` : "blur(0px)",
+        transition: blurred
+          ? `filter ${BLUR_IN_MS}ms ease`
+          : `filter ${BLUR_OUT_MS}ms cubic-bezier(0.23, 1, 0.32, 1)`,
+      }}
       className={className}
     >
       {displayedChildren}
